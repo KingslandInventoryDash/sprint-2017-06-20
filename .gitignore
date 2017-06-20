@@ -1,0 +1,4 @@
+.vs/
+*.zip
+InventoryDash/bin/roslyn
+InventoryDash/obj/
