@@ -1,4 +1,4 @@
 .vs/
 *.zip
 InventoryDash/bin/roslyn
-InventoryDash/obj/
+InventoryDash/obj/Debug/
