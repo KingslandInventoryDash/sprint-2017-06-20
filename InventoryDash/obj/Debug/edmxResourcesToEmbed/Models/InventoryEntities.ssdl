@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="InventoryManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Beverages">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Price" Type="smallmoney" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Bread">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Price" Type="smallmoney" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Condiments">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Price" Type="smallmoney" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Dairy">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Price" Type="smallmoney" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Meats">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Price" Type="smallmoney" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TOGOs">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Price" Type="smallmoney" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Vegetables">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Price" Type="smallmoney" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="InventoryManagementModelStoreContainer">
+    <EntitySet Name="Beverages" EntityType="Self.Beverages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Bread" EntityType="Self.Bread" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Condiments" EntityType="Self.Condiments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Dairy" EntityType="Self.Dairy" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Meats" EntityType="Self.Meats" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TOGOs" EntityType="Self.TOGOs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Vegetables" EntityType="Self.Vegetables" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>
