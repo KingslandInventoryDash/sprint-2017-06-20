@@ -76,15 +76,17 @@ namespace InventoryDash.Controllers
         // POST: Sandwich/AddIngredients
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddIngredients([Bind(Include = "ID,Ingredients")] Sandwich sandwich, string sandwichId)
+        public ActionResult AddIngredients(int[] ingredient, string sandwichId)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(sandwich).State = EntityState.Modified;
-                db.SaveChanges();
+                
+
+
+
                 return RedirectToAction("Index");
             }
-            return View(sandwich);
+            return View();
         }
 
         // GET: Sandwich/Edit/5

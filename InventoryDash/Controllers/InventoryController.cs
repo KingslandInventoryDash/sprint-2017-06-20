@@ -21,20 +21,18 @@ namespace InventoryDash.Controllers
             return View(db.Sandwiches.ToList());
         }
 
-        // POST: Meats/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        /*[HttpPost]
+        // POST: Index page
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductId,Name,Price")] Meat meat)
+        public ActionResult Index([Bind(Include = "ID,MenuItem,Qty")] DailyInventory dailyInventory)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(meat).State = EntityState.Modified;
+                db.Entry(dailyInventory).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(meat);
-        }*/
+            return View(dailyInventory);
+        }
     }
 }
