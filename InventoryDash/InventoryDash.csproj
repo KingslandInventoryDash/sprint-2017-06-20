@@ -158,6 +158,7 @@
     </Compile>
     <Compile Include="Models\DailyInventory.cs" />
     <Compile Include="Models\Ingredient.cs" />
+    <Compile Include="Models\ingredientEntry.cs" />
     <Compile Include="Models\Sandwich.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
