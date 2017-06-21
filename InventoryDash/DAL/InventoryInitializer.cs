@@ -22,7 +22,7 @@ namespace InventoryDash.DAL
 
             var sandwiches = new List<Sandwich>
             {
-            new Sandwich {Name="White bread toast & butter - add jam", Price=1.50, Ingredients = new List<Ingredient> { new Ingredient { Name = "white bread"}, new Ingredient { Name = "butter"}, new Ingredient { Name = "jam"} } },
+            new Sandwich {Name="White bread toast & butter... add jam", Price=1.50, Ingredients = new List<Ingredient> { new Ingredient { Name = "white bread"}, new Ingredient { Name = "butter"}, new Ingredient { Name = "jam"} } },
             new Sandwich {Name="Fried egg, cheddar or pepper jack cheese", Price=3.00, Ingredients = new List<Ingredient> { new Ingredient { Name = "English muffin"}, new Ingredient { Name = "cheddar cheese"}, new Ingredient { Name = "pepper jack cheese"} } }
             };
             sandwiches.ForEach(s => context.Sandwiches.Add(s));

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using InventoryDash.DAL;
 using InventoryDash.Models;
+using System.Dynamic;
 
 namespace InventoryDash.Controllers
 {
@@ -47,15 +48,35 @@ namespace InventoryDash.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Price,Meal,IngredientString")] Sandwich sandwich)
+        public ActionResult Create([Bind(Include = "ID,Name,Price,Meal")] Sandwich sandwich)
         {
             if (ModelState.IsValid)
             {
                 db.Sandwiches.Add(sandwich);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AddIngredients");
             }
 
+            return View(sandwich);
+        }
+
+        // GET: Sandwich/AddIngredients
+        public ActionResult AddIngredients()
+        {
+            return View(db.Ingredients.ToList());
+        }
+
+        // POST: Sandwich/AddIngredients
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddIngredients([Bind(Include = "ID,Ingredients")] Sandwich sandwich)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(sandwich).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
             return View(sandwich);
         }
 

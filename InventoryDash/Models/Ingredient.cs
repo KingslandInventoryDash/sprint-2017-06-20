@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -7,7 +8,7 @@ namespace InventoryDash.Models
 {
     public enum category
     {
-        bread, protein, dairy, produce, condiment, beverage, togo
+        beverage, bread, condiment, dairy, produce, protein, togo
     }
 
     public class Ingredient
@@ -16,5 +17,8 @@ namespace InventoryDash.Models
         public string Name { get; set; }
         public double Price { get; set; }
         public category Category { get; set; }
+        public bool UsedInSandwich { get; set; }
+
+        public virtual ICollection<Sandwich> Sandwiches { get; set; }
     }
 }

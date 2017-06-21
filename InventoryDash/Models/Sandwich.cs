@@ -18,21 +18,23 @@ namespace InventoryDash.Models
         public string Name { get; set; }
         public double? Price { get; set; }
         public meal Meal { get; set; }
-        public List<Ingredient> Ingredients { get; set; }
         [Display(Name = "Ingredients")]
-        public string IngredientString { get; set; }
-
-        public string GetIngredients(List<Ingredient> Ingredients)
+        public virtual ICollection<Ingredient> Ingredients { get; set; }
+        
+        public string GetIngredients(Sandwich sandwich)
         {
             StringBuilder ingredientList = new StringBuilder();
-            foreach (Ingredient i in Ingredients)
+            foreach (Ingredient i in sandwich.Ingredients)
             {
                 string ingredientName = i.Name;
                 ingredientList.Append(ingredientName);
                 ingredientList.Append(", ");
             }
             int index = ingredientList.Length;
-            ingredientList.Remove(index - 2, 2);
+            if (index >= 2)
+            {
+                ingredientList.Remove(index - 2, 2);
+            }
             return ingredientList.ToString();
         }
     }
