@@ -153,6 +153,7 @@
     <Compile Include="Controllers\SandwichController.cs" />
     <Compile Include="DAL\InventoryContext.cs" />
     <Compile Include="DAL\InventoryInitializer.cs" />
+    <Compile Include="DAL\WeeklyInventoryContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -160,6 +161,10 @@
     <Compile Include="Models\Ingredient.cs" />
     <Compile Include="Models\ingredientEntry.cs" />
     <Compile Include="Models\Sandwich.cs" />
+    <Compile Include="Models\WeeklyInventoryDrinks.cs" />
+    <Compile Include="Models\WeeklyInventoryExtras.cs" />
+    <Compile Include="Models\WeeklyInventoryMain.cs" />
+    <Compile Include="Models\WeeklyInventorySandwiches.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
