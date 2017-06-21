@@ -16,7 +16,8 @@
         if (item.Category == InventoryDash.Models.category.bread)
         {
             <div class="checkbox">
-                @Html.CheckBoxFor(model => item.UsedInSandwich)
+                @*@Html.CheckBoxFor(model => item.UsedInSandwich)*@
+                <input type="checkbox" name="ingredient" value="@item.ID" />
                 @item.Name
             </div>
         }
@@ -27,7 +28,8 @@
         if (item.Category == InventoryDash.Models.category.protein)
         {
             <div class="checkbox">
-                @Html.CheckBoxFor(model => item.UsedInSandwich)
+                
+                <input type="checkbox" name="ingredient" value="@item.ID" />
                 @item.Name
             </div>
         }
@@ -38,7 +40,7 @@
         if (item.Category == InventoryDash.Models.category.dairy)
         {
             <div class="checkbox">
-                @Html.CheckBoxFor(model => item.UsedInSandwich)
+                <input type="checkbox" name="ingredient" value="@item.ID" />
                 @item.Name
             </div>
         }
@@ -49,7 +51,7 @@
         if (item.Category == InventoryDash.Models.category.produce)
         {
             <div class="checkbox">
-                @Html.CheckBoxFor(model => item.UsedInSandwich)
+                <input type="checkbox" name="ingredient" value="@item.ID" />
                 @item.Name
             </div>
         }
@@ -60,7 +62,7 @@
         if (item.Category == InventoryDash.Models.category.condiment)
         {
             <div class="checkbox">
-                @Html.CheckBoxFor(model => item.UsedInSandwich)
+                <input type="checkbox" name="ingredient" value="@item.ID" />
                 @item.Name
             </div>
         }
@@ -71,7 +73,7 @@
         if (item.Category == InventoryDash.Models.category.togo)
         {
             <div class="checkbox">
-                @Html.CheckBoxFor(model => item.UsedInSandwich)
+                <input type="checkbox" name="ingredient" value="@item.ID" />
                 @*@<input type="checkbox" name="foodItem" value="@item.ID"/>*@
                 @item.Name
             </div>

@@ -1,138 +1,182 @@
 ﻿@model List<InventoryDash.Models.Sandwich>
 
 @{
-    ViewBag.Title = "Daily Inventory";
+    ViewBag.Title = "Weekly Inventory";
 }
 
-<h2>Daily Inventory - @DateTime.Today.ToString("D")</h2>
+<h2>Weekly Inventory - 
+    @{ //Determining the week span of dates Monday to Sunday, based off today's date.
+        int dayOfWeek = Convert.ToInt32( DateTime.Today.DayOfWeek);
+        string mondayOfWeek = "";
+        string sundayOfWeek = "";
+        switch (dayOfWeek)
+        {
+            case 0: //Sunday
+                mondayOfWeek = DateTime.Today.AddDays(-6).ToString("D");
+                sundayOfWeek = DateTime.Today.ToString("D");
+                break;
+            case 1: // Monday
+                mondayOfWeek = DateTime.Today.ToString("D");
+                sundayOfWeek = DateTime.Today.AddDays(6).ToString("D");
+                break;
+            case 2: //Tuesday
+                mondayOfWeek = DateTime.Today.AddDays(-2).ToString("D");
+                sundayOfWeek = DateTime.Today.AddDays(5).ToString("D");
+                break;
+            case 3: //Wednesday
+                mondayOfWeek = DateTime.Today.AddDays(-2).ToString("D");
+                sundayOfWeek = DateTime.Today.AddDays(4).ToString("D");
+                break;
+            case 4:
+                mondayOfWeek = DateTime.Today.AddDays(-3).ToString("D");
+                sundayOfWeek = DateTime.Today.AddDays(3).ToString("D");
+                break;
+            case 5:
+                mondayOfWeek = DateTime.Today.AddDays(-4).ToString("D");
+                sundayOfWeek = DateTime.Today.AddDays(2).ToString("D");
+                break;
+            case 6:
+                mondayOfWeek = DateTime.Today.AddDays(-5).ToString("D");
+                sundayOfWeek = DateTime.Today.AddDays(1).ToString("D");
+                break;
+            default:
+                break;
+        }
 
-<ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#breakfast">Breakfast</a></li>
-    <li><a data-toggle="tab" href="#lunch">Lunch</a></li>
-    <li><a data-toggle="tab" href="#beverages">Beverages</a></li>
-    <li><a data-toggle="tab" href="#extras">Extras</a></li>
-</ul>
+    }@mondayOfWeek to @sundayOfWeek</h2>
 
-<div class="tab-content">
-    <div id="breakfast" class="tab-pane fade in active">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <h3>Breakfast Items</h3>
-                    <table class="table">
-                        <tr>
-                            <th>Item</th>
-                            <th>Qty (Dine-In)</th>
-                            <th>Qty (To-Go)</th>
-                        </tr>
-                        <tbody>
-                            @foreach (var s in Model)
-                            {
-                                <tr>
-                                    @if (s.Meal == InventoryDash.Models.meal.breakfast)
-                                    {
-                                        <td>@s.Name</td>
-                                        <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>
-                                        <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>
-                                    }
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                    <input type="submit" value="Submit" class="pull-right" />
-                </div>
-                <div class="col-lg-4">
-                    <h3>Summary</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="lunch" class="tab-pane fade">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <h3>Lunch Items</h3>
-                    <table class="table">
-                        <tr>
-                            <th>Item</th>
-                            <th>Qty (Dine-In)</th>
-                            <th>Qty (To-Go)</th>
-                        </tr>
-                        <tbody>
-                            @foreach (var sandwich in Model)
-                            {
-                                <tr>
-                                    @if (sandwich.Meal == InventoryDash.Models.meal.lunch)
-                                    {
-                                        <td>@sandwich.Name</td>
-                                        <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>
-                                        <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>
-                                    }
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                    <input type="submit" value="Submit" class="pull-right" />
-                </div>
-                <div class="col-lg-4">
-                    <h3>Summary</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="beverages" class="tab-pane fade">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <h3>Beverages</h3>
-                    <table class="table">
-                        <tr>
-                            <th>Item</th>
-                            <th>Qty (Dine-In)</th>
-                            <th>Qty (To-Go)</th>
-                        </tr>
-                        <tbody>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#breakfast">Breakfast</a></li>
+        <li><a data-toggle="tab" href="#lunch">Lunch</a></li>
+        <li><a data-toggle="tab" href="#beverages">Beverages</a></li>
+        <li><a data-toggle="tab" href="#extras">Extras</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="breakfast" class="tab-pane fade in active">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h3>Breakfast Items</h3>
+                        <table class="table">
                             <tr>
-                                <td></td>
-                                <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>
-                                <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>
+                                <th>Item</th>
+                                <th>Qty (Dine-In)</th>
+                                <th>Qty (To-Go)</th>
                             </tr>
-                        </tbody>
-                    </table>
-                    <input type="submit" value="Submit" class="pull-right"/>
-                </div>
-                <div class="col-lg-4">
-                    <h3>Summary</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="extras" class="tab-pane fade">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <h3>Extras</h3>
-                    <table class="table">
-                        <tr>
-                            <th>Item</th>
-                            <th>Qty (Dine-In)</th>
-                            <th>Qty (To-Go</th>
-                        </tr>
-                        <tbody>
-                            <tr>
-                                <td></td>
-                                <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>
-                                <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <input type="submit" value="Submit" class="pull-right" />
-                </div>
-                <div class="col-lg-4">
-                    <h3>Summary</h3>
-                </div>
-            </div>
-        </div>
-    </div>
+                            <tbody>
+                                @foreach (var s in Model)
+                                {
+                                    <tr>
+                                        @if (s.Meal == InventoryDash.Models.meal.breakfast)
+                                        {
+                                            <td>@s.Name</td>
+                                            <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>
+                                            <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
 
-</div>
+                    </div>
+                    <div class="col-lg-4">
+                        <h3>Summary</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="lunch" class="tab-pane fade">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h3>Lunch Items</h3>
+                        <table class="table">
+                            <tr>
+                                <th>Item</th>
+                                <th>Qty (Dine-In)</th>
+                                <th>Qty (To-Go)</th>
+                            </tr>
+                            <tbody>
+                                @foreach (var sandwich in Model)
+                                {
+                                    <tr>
+                                        @if (sandwich.Meal == InventoryDash.Models.meal.lunch)
+                                        {
+                                            <td>@sandwich.Name</td>
+                                            <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>
+                                            <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="col-lg-4">
+                        <h3>Summary</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="beverages" class="tab-pane fade">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h3>Beverages</h3>
+                        <table class="table">
+                            <tr>
+                                <th>Item</th>
+                                <th>Qty (Dine-In)</th>
+                                <th>Qty (To-Go)</th>
+                            </tr>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>
+                                    <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="col-lg-4">
+                        <h3>Summary</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="extras" class="tab-pane fade">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h3>Extras</h3>
+                        <table class="table">
+                            <tr>
+                                <th>Item</th>
+                                <th>Qty (Dine-In)</th>
+                                <th>Qty (To-Go</th>
+                            </tr>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>
+                                    <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="col-lg-4">
+                        <h3>Summary</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <input type="submit" value="Submit" class="pull-right" />
+} <!--//End of using tag -->
