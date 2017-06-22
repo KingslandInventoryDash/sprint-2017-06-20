@@ -6,6 +6,7 @@
 
 <h2>Weekly Inventory - 
     @{ //Determining the week span of dates Monday to Sunday, based off today's date.
+        int counter = 0;
         int dayOfWeek = Convert.ToInt32( DateTime.Today.DayOfWeek);
         string mondayOfWeek = "";
         string sundayOfWeek = "";
@@ -68,16 +69,21 @@
                                 <th>Qty (To-Go)</th>
                             </tr>
                             <tbody>
+                                
                                 @foreach (var s in Model)
                                 {
                                     <tr>
                                         @if (s.Meal == InventoryDash.Models.meal.breakfast || s.Meal == InventoryDash.Models.meal.both)
                                         {
+                                            <td>@Html.TextBox("weeklyInventorySandwiches[" + @counter + "].SandwichID", s.ID, new { @readonly = "readonly" })</td>
                                             <td>@s.Name</td>
-                                            <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>
-                                            <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>
+                                            <td>@Html.Hidden("weeklyInventorySandwiches[" + @counter + "].Meal", s.Meal)</td>
+                                            
+                                            <td class="col-md-1">@Html.TextBox("weeklyInventorySandwiches[" + @counter + "].QuantityDineIn")</td>
+                                            <td class="col-md-1">@Html.TextBox("weeklyInventorySandwiches[" + @counter + "].QuantityToGo")</td>
+                                            counter++;
                                         }
-                                    </tr>
+                                    </tr>                                    
                                 }
                             </tbody>
                         </table>

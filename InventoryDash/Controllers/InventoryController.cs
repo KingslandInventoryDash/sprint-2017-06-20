@@ -24,14 +24,15 @@ namespace InventoryDash.Controllers
 
         // GET: Weekly Inventory Data Entry
         public ActionResult Index()
-        {
+        {   
+
             return View(db.Sandwiches.ToList());
         }
 
         // POST: Index page
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index([Bind(Include = "ID,WeekId,SandwichId,QuantityToGo,QuantityDineIn,MealId,Cost,Income")] WeeklyInventorySandwiches weeklyInventorySandwiches)
+        public ActionResult Index(WeeklyInventorySandwiches weeklyInventorySandwiches)
         {
             if (ModelState.IsValid)
             {
