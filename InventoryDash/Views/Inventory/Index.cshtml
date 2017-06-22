@@ -71,7 +71,7 @@
                                 @foreach (var s in Model)
                                 {
                                     <tr>
-                                        @if (s.Meal == InventoryDash.Models.meal.breakfast)
+                                        @if (s.Meal == InventoryDash.Models.meal.breakfast || s.Meal == InventoryDash.Models.meal.both)
                                         {
                                             <td>@s.Name</td>
                                             <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>
@@ -104,7 +104,7 @@
                                 @foreach (var sandwich in Model)
                                 {
                                     <tr>
-                                        @if (sandwich.Meal == InventoryDash.Models.meal.lunch)
+                                        @if (sandwich.Meal == InventoryDash.Models.meal.lunch || sandwich.Meal == InventoryDash.Models.meal.both)
                                         {
                                             <td>@sandwich.Name</td>
                                             <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>

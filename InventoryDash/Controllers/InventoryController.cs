@@ -1,21 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using InventoryDash.Models;
-using System.Data.Entity;
 using InventoryDash.DAL;
+using InventoryDash.Models;
+using System.Dynamic;
+using System.Data.Entity.Core;
+using System.Data.Entity.Core.Objects;
+using System.Web.UI.WebControls;
 
 namespace InventoryDash.Controllers
 {
     public class InventoryController : Controller
     {
         private InventoryContext db = new InventoryContext();
+        private WeeklyInventoryContext weeklyDb = new WeeklyInventoryContext();
 
-        //List<int> QtyDineIn = new List<int>();
 
-        // GET: Log
+
+        // GET: Weekly Inventory Data Entry
         public ActionResult Index()
         {
             return View(db.Sandwiches.ToList());
@@ -24,15 +31,15 @@ namespace InventoryDash.Controllers
         // POST: Index page
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index([Bind(Include = "ID,MenuItem,Qty")] DailyInventory dailyInventory)
+        public ActionResult Index([Bind(Include = "ID,WeekId,SandwichId,QuantityToGo,QuantityDineIn,MealId,Cost,Income")] WeeklyInventorySandwiches weeklyInventorySandwiches)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(dailyInventory).State = EntityState.Modified;
-                db.SaveChanges();
+                db.Entry(weeklyInventorySandwiches).State = EntityState.Modified;
+                //db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(dailyInventory);
+            return View();
         }
     }
 }
