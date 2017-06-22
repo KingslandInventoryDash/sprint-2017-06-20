@@ -248,3 +248,6 @@ D:\Users\Bryce Tucker\Source\Repos\sprint-2017-06-20\InventoryDash\bin\System.We
 D:\Users\Bryce Tucker\Source\Repos\sprint-2017-06-20\InventoryDash\obj\Debug\InventoryDash.csprojResolveAssemblyReference.cache
 D:\Users\Bryce Tucker\Source\Repos\sprint-2017-06-20\InventoryDash\obj\Debug\InventoryDash.dll
 D:\Users\Bryce Tucker\Source\Repos\sprint-2017-06-20\InventoryDash\obj\Debug\InventoryDash.pdb
+C:\Users\Student\Documents\Tucker\Tech-Academy-Code\liveproject\sprint-2017-06-20\InventoryDash\obj\Debug\InventoryDash.Migrations.InitialCreate.resources
+C:\Users\Student\Documents\Tucker\Tech-Academy-Code\liveproject\sprint-2017-06-20\InventoryDash\obj\Debug\InventoryDash.csproj.GenerateResource.Cache
+C:\Users\Student\Documents\Tucker\Tech-Academy-Code\liveproject\sprint-2017-06-20\InventoryDash\obj\Debug\InventoryDash.Migrations.migrationbryce1.resources

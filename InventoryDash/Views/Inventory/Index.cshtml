@@ -1,4 +1,4 @@
-﻿@model List<InventoryDash.Models.Sandwich>
+﻿@model List<InventoryDash.Models.WeeklyInventorySandwichesViewModel>
 
 @{
     ViewBag.Title = "Weekly Inventory";
@@ -44,7 +44,9 @@
                 break;
         }
 
+        
     }@mondayOfWeek to @sundayOfWeek</h2>
+<p>@ViewData["weekOfYear"]</p>
 
 @using (Html.BeginForm())
 {
@@ -52,8 +54,6 @@
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#breakfast">Breakfast</a></li>
         <li><a data-toggle="tab" href="#lunch">Lunch</a></li>
-        <li><a data-toggle="tab" href="#beverages">Beverages</a></li>
-        <li><a data-toggle="tab" href="#extras">Extras</a></li>
     </ul>
 
     <div class="tab-content">
@@ -70,17 +70,19 @@
                             </tr>
                             <tbody>
                                 
-                                @foreach (var s in Model)
+                                @foreach (var s in (List<InventoryDash.Models.WeeklyInventorySandwichesViewModel>) Model)
                                 {
                                     <tr>
                                         @if (s.Meal == InventoryDash.Models.meal.breakfast || s.Meal == InventoryDash.Models.meal.both)
                                         {
-                                            <td>@Html.TextBox("weeklyInventorySandwiches[" + @counter + "].SandwichID", s.ID, new { @readonly = "readonly" })</td>
-                                            <td>@s.Name</td>
-                                            <td>@Html.Hidden("weeklyInventorySandwiches[" + @counter + "].Meal", s.Meal)</td>
+                                            <td>
+                                                @s.Name @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].SandwichID", s.ID)
+                                                @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].Meal", s.Meal)
+                                                @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].WeekId", s.WeekId)
+                                            </td>                                            
                                             
-                                            <td class="col-md-1">@Html.TextBox("weeklyInventorySandwiches[" + @counter + "].QuantityDineIn")</td>
-                                            <td class="col-md-1">@Html.TextBox("weeklyInventorySandwiches[" + @counter + "].QuantityToGo")</td>
+                                            <td class="col-md-1">@Html.TextBox("weeklyInventorySandwiches[" + @counter + "].QuantityDineIn", s.QuantityDineIn)</td>
+                                            <td class="col-md-1">@Html.TextBox("weeklyInventorySandwiches[" + @counter + "].QuantityToGo", s.QuantityToGo)</td>
                                             counter++;
                                         }
                                     </tr>                                    
@@ -107,14 +109,20 @@
                                 <th>Qty (To-Go)</th>
                             </tr>
                             <tbody>
-                                @foreach (var sandwich in Model)
+                                @foreach (var s in (List<InventoryDash.Models.WeeklyInventorySandwichesViewModel>)Model)
                                 {
                                     <tr>
-                                        @if (sandwich.Meal == InventoryDash.Models.meal.lunch || sandwich.Meal == InventoryDash.Models.meal.both)
+                                        @if (s.Meal == InventoryDash.Models.meal.lunch || s.Meal == InventoryDash.Models.meal.both)
                                         {
-                                            <td>@sandwich.Name</td>
-                                            <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>
-                                            <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>
+                                            <td>
+                                                @s.Name @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].SandwichID", s.ID)
+                                                @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].Meal", s.Meal)
+                                                @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].WeekId", s.WeekId)
+                                            </td>
+
+                                            <td class="col-md-1">@Html.TextBox("weeklyInventorySandwiches[" + @counter + "].QuantityDineIn", s.QuantityDineIn)</td>
+                                            <td class="col-md-1">@Html.TextBox("weeklyInventorySandwiches[" + @counter + "].QuantityToGo", s.QuantityToGo)</td>
+                                            counter++;
                                         }
                                     </tr>
                                 }

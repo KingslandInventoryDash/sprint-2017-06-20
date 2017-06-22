@@ -153,10 +153,18 @@
     <Compile Include="Controllers\SandwichController.cs" />
     <Compile Include="DAL\InventoryContext.cs" />
     <Compile Include="DAL\InventoryInitializer.cs" />
-    <Compile Include="DAL\WeeklyInventoryContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706202059144_InitialCreate.cs" />
+    <Compile Include="Migrations\201706202059144_InitialCreate.Designer.cs">
+      <DependentUpon>201706202059144_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706221823354_migration-bryce-1.cs" />
+    <Compile Include="Migrations\201706221823354_migration-bryce-1.Designer.cs">
+      <DependentUpon>201706221823354_migration-bryce-1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DailyInventory.cs" />
     <Compile Include="Models\Ingredient.cs" />
     <Compile Include="Models\ingredientEntry.cs" />
@@ -165,6 +173,7 @@
     <Compile Include="Models\WeeklyInventoryExtras.cs" />
     <Compile Include="Models\WeeklyInventoryMain.cs" />
     <Compile Include="Models\WeeklyInventorySandwiches.cs" />
+    <Compile Include="Models\WeeklyInventorySandwichesViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -204,6 +213,14 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201706202059144_InitialCreate.resx">
+      <DependentUpon>201706202059144_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706221823354_migration-bryce-1.resx">
+      <DependentUpon>201706221823354_migration-bryce-1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
