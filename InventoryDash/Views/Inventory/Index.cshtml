@@ -1,4 +1,4 @@
-﻿@model List<InventoryDash.Models.Sandwich>
+﻿@model List<InventoryDash.Models.WeeklyInventorySandwichesViewModel>
 
 @{
     ViewBag.Title = "Weekly Inventory";
@@ -6,6 +6,7 @@
 
 <h2>Weekly Inventory - 
     @{ //Determining the week span of dates Monday to Sunday, based off today's date.
+        int counter = 0;
         int dayOfWeek = Convert.ToInt32( DateTime.Today.DayOfWeek);
         string mondayOfWeek = "";
         string sundayOfWeek = "";
@@ -43,7 +44,9 @@
                 break;
         }
 
+        
     }@mondayOfWeek to @sundayOfWeek</h2>
+<p>@ViewData["weekOfYear"]</p>
 
 @using (Html.BeginForm())
 {
@@ -51,8 +54,6 @@
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#breakfast">Breakfast</a></li>
         <li><a data-toggle="tab" href="#lunch">Lunch</a></li>
-        <li><a data-toggle="tab" href="#beverages">Beverages</a></li>
-        <li><a data-toggle="tab" href="#extras">Extras</a></li>
     </ul>
 
     <div class="tab-content">
@@ -68,16 +69,26 @@
                                 <th>Qty (To-Go)</th>
                             </tr>
                             <tbody>
-                                @foreach (var s in Model)
+                                
+                                @foreach (var s in (List<InventoryDash.Models.WeeklyInventorySandwichesViewModel>) Model)
                                 {
                                     <tr>
-                                        @if (s.Meal == InventoryDash.Models.meal.breakfast)
+                                        @if (s.MealId == InventoryDash.Models.meal.breakfast || (s.Meal == InventoryDash.Models.meal.both && s.ID == null) || (s.Meal == InventoryDash.Models.meal.breakfast && s.ID == null))
                                         {
-                                            <td>@s.Name</td>
-                                            <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>
-                                            <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>
+                                            <td>@s.Name 
+                                                @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].SandwichID", s.SandwichId)
+                                                @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].MealId", InventoryDash.Models.meal.breakfast) @*Making sure items marked both, create records marked breakfast*@
+                                                @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].WeekId", s.WeekId > 0? s.WeekId: ViewData["weekOfYear"])
+                                                @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].ID", s.ID)
+                                                @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].Cost", s.Cost)
+                                                @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].Income", s.Income)
+                                            </td>                                            
+                                            
+                                            <td class="col-md-1">@Html.TextBox("weeklyInventorySandwiches[" + @counter + "].QuantityDineIn", s.QuantityDineIn)</td>
+                                            <td class="col-md-1">@Html.TextBox("weeklyInventorySandwiches[" + @counter + "].QuantityToGo", s.QuantityToGo)</td>
+                                            counter++;
                                         }
-                                    </tr>
+                                    </tr>                                    
                                 }
                             </tbody>
                         </table>
@@ -101,14 +112,23 @@
                                 <th>Qty (To-Go)</th>
                             </tr>
                             <tbody>
-                                @foreach (var sandwich in Model)
+                                @foreach (var s in (List<InventoryDash.Models.WeeklyInventorySandwichesViewModel>)Model)
                                 {
                                     <tr>
-                                        @if (sandwich.Meal == InventoryDash.Models.meal.lunch)
+                                        @if (s.MealId == InventoryDash.Models.meal.lunch || (s.Meal == InventoryDash.Models.meal.both && s.ID == null) || (s.Meal == InventoryDash.Models.meal.lunch && s.ID == null))
                                         {
-                                            <td>@sandwich.Name</td>
-                                            <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>
-                                            <td class="col-md-1"><input type="text" class="form-control" id="qty"></td>
+                                            <td> @s.Name 
+                                                @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].SandwichID", s.SandwichId)
+                                                @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].MealId", InventoryDash.Models.meal.lunch)@*Making sure the meal value for sandwiches marked both, create records for lunch.*@
+                                                @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].WeekId", s.WeekId > 0 ? s.WeekId : ViewData["weekOfYear"])
+                                                @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].ID", s.ID)
+                                                @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].Cost", s.Cost)
+                                                @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].Income", s.Income)
+                                            </td>
+
+                                            <td class="col-md-1">@Html.TextBox("weeklyInventorySandwiches[" + @counter + "].QuantityDineIn", s.QuantityDineIn)</td>
+                                            <td class="col-md-1">@Html.TextBox("weeklyInventorySandwiches[" + @counter + "].QuantityToGo", s.QuantityToGo)</td>
+                                            counter++;
                                         }
                                     </tr>
                                 }

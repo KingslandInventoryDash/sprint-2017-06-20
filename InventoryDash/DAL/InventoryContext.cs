@@ -13,6 +13,9 @@ namespace InventoryDash.DAL
 
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Sandwich> Sandwiches { get; set; }
+        public DbSet<WeeklyInventoryMain> WeeklyInventoryMains { get; set; }
+        public DbSet<WeeklyInventorySandwiches> WeeklyInventorySandwiches { get; set; }
+        public DbSet<WeeklyInventoryDrinks> WeeklyInventoryDrinks { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
