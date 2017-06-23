@@ -156,11 +156,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-<<<<<<< HEAD
-    <Compile Include="Migrations\201706222005052_Inital.cs" />
-    <Compile Include="Migrations\201706222005052_Inital.Designer.cs">
-      <DependentUpon>201706222005052_Inital.cs</DependentUpon>
-=======
     <Compile Include="Migrations\201706202059144_InitialCreate.cs" />
     <Compile Include="Migrations\201706202059144_InitialCreate.Designer.cs">
       <DependentUpon>201706202059144_InitialCreate.cs</DependentUpon>
@@ -168,7 +163,6 @@
     <Compile Include="Migrations\201706231743433_2017-06-23.cs" />
     <Compile Include="Migrations\201706231743433_2017-06-23.Designer.cs">
       <DependentUpon>201706231743433_2017-06-23.cs</DependentUpon>
->>>>>>> WeeklyInventoryAcceptQuantities
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DailyInventory.cs" />
@@ -221,16 +215,11 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <EmbeddedResource Include="Migrations\201706222005052_Inital.resx">
-      <DependentUpon>201706222005052_Inital.cs</DependentUpon>
-=======
     <EmbeddedResource Include="Migrations\201706202059144_InitialCreate.resx">
       <DependentUpon>201706202059144_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706231743433_2017-06-23.resx">
       <DependentUpon>201706231743433_2017-06-23.cs</DependentUpon>
->>>>>>> WeeklyInventoryAcceptQuantities
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
