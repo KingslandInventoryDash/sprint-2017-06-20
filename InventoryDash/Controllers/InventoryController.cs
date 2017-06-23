@@ -31,9 +31,10 @@ namespace InventoryDash.Controllers
                                        from so in db.WeeklyInventorySandwiches
                                        .Where(orders => s.ID == orders.SandwichId)
                                        .DefaultIfEmpty()
+                                       where so.WeekId==weekOfYear
                                        select new WeeklyInventorySandwichesViewModel{
                                            ID=so.ID,
-                                           WeekId=so.ID,
+                                           WeekId=so.WeekId,
                                            SandwichId=s.ID,
                                            QuantityToGo=so.QuantityToGo,
                                            QuantityDineIn=so.QuantityDineIn,
