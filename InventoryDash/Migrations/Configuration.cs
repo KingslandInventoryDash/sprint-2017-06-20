@@ -10,10 +10,9 @@ namespace InventoryDash.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-<<<<<<< HEAD
-=======
+
             ContextKey = "InventoryDash.DAL.InventoryContext";
->>>>>>> WeeklyInventoryAcceptQuantities
+
         }
 
         protected override void Seed(InventoryDash.DAL.InventoryContext context)
