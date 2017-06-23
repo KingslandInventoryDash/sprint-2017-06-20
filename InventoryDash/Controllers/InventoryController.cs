@@ -25,27 +25,26 @@ namespace InventoryDash.Controllers
         {
 
             int weekOfYear = GetCurrentWeekOfYear();
+            ViewData["weekOfYear"] = weekOfYear;
 
-            var sandwichesViewModel = (from n in db.WeeklyInventorySandwiches
-                                       from m in db.Sandwiches
-                                        .Where(so => n.SandwichId == so.ID)
-                                        .DefaultIfEmpty()
-                                 where n.WeekId == weekOfYear
-                                 select new WeeklyInventorySandwichesViewModel
-                                 {
-                                     WeekId = n.WeekId,
-                                     SandwichId = m.ID,
-                                     QuantityToGo = n.QuantityToGo,
-                                     QuantityDineIn = n.QuantityDineIn,
-                                     MealId = n.MealId,
-                                     Cost = n.Cost,
-                                     Income = n.Income,
-                                     Name = m.Name,
-                                     Price = m.Price,
-                                     Meal = m.Meal
-                                 }).ToList();
+            var sandwichesViewModel = (from s in db.Sandwiches
+                                       from so in db.WeeklyInventorySandwiches
+                                       .Where(orders => s.ID == orders.SandwichId)
+                                       .DefaultIfEmpty()
+                                       select new WeeklyInventorySandwichesViewModel{
+                                           ID=so.ID,
+                                           WeekId=so.ID,
+                                           SandwichId=s.ID,
+                                           QuantityToGo=so.QuantityToGo,
+                                           QuantityDineIn=so.QuantityDineIn,
+                                           MealId=so.MealId,
+                                           Cost=so.Cost,
+                                           Income=so.Income,
+                                           Name=s.Name,
+                                           Price=s.Price,
+                                           Meal=s.Meal}).ToList();
 
-            //ViewData["sandwichesList"] = db.Sandwiches.ToList();
+
             return View(sandwichesViewModel);
         }
 
@@ -59,7 +58,11 @@ namespace InventoryDash.Controllers
             {
                 if(weeklyInventorySandwiches[i].QuantityDineIn != 0 || weeklyInventorySandwiches[i].QuantityToGo != 0)
                 {
-                    //Some quantity information was provided, so record the data.
+                    //Some quantity information was provided
+                    //Calculate the cost and income values
+                    //Determine if a record already exists - 
+                        //Yes, then update the record.
+                        //No, add the record.
                     db.WeeklyInventorySandwiches.Add(weeklyInventorySandwiches[i]);
                 }
             }

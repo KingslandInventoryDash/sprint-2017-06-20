@@ -76,9 +76,9 @@
                                         @if (s.Meal == InventoryDash.Models.meal.breakfast || s.Meal == InventoryDash.Models.meal.both)
                                         {
                                             <td>
-                                                @s.Name @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].SandwichID", s.ID)
+                                                @s.Name @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].SandwichID", s.SandwichId)
                                                 @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].Meal", s.Meal)
-                                                @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].WeekId", s.WeekId)
+                                                @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].WeekId", s.WeekId > 0? s.WeekId: ViewData["weekOfYear"])
                                             </td>                                            
                                             
                                             <td class="col-md-1">@Html.TextBox("weeklyInventorySandwiches[" + @counter + "].QuantityDineIn", s.QuantityDineIn)</td>
