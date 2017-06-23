@@ -12,6 +12,8 @@ using System.Dynamic;
 using System.Data.Entity.Core;
 using System.Data.Entity.Core.Objects;
 using System.Web.UI.WebControls;
+using System.Configuration;
+using System.Data.SqlClient;
 
 namespace InventoryDash.Controllers
 {
@@ -80,9 +82,27 @@ namespace InventoryDash.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-
-
+                //string foo = "Data Source=(LocalDb)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Riley\\InventoryDash4.mdf;Integrated Security=True;";
+                //var con = ConfigurationManager.ConnectionStrings[foo];
+                //string conString = con.ToString();
+                string conString = ConfigurationManager.ConnectionStrings["InventoryContext"].ConnectionString.ToString();
+                //SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionStringNameFromWebConfig"].ConnectionString);
+                SqlConnection conn = null;
+                conn = new SqlConnection(conString);
+                //conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionStringNameFromWebConfig"].ConnectionString);
+                conn.Open();
+                for (int i = 0; i < ingredient.Count(); i++)
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = conn;
+                        cmd.CommandType = CommandType.Text;
+                        cmd.CommandText = "INSERT INTO SandwichIngredient(Sandwich_ID,Ingredient_ID) Values (@var1, @var2)";
+                        cmd.Parameters.AddWithValue("@var1", sandwichId);
+                        cmd.Parameters.AddWithValue("@var2", ingredient[i]);
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                    }
+                }
 
                 return RedirectToAction("Index");
             }
