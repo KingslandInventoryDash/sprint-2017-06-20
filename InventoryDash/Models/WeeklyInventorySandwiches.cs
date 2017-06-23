@@ -12,7 +12,7 @@ namespace InventoryDash.Models
         public int SandwichId { get; set; }
         public int QuantityToGo { get; set; }
         public int QuantityDineIn { get; set; }
-        public int MealId { get; set; }
+        public meal? MealId { get; set; } //Enum is defined in the Sandwich.cs model
         public decimal Cost { get; set; }
         public decimal Income { get; set; }
     }

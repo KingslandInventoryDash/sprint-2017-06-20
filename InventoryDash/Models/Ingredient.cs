@@ -21,4 +21,5 @@ namespace InventoryDash.Models
 
         public virtual ICollection<Sandwich> Sandwiches { get; set; }
     }
+
 }

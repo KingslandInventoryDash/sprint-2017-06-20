@@ -160,9 +160,9 @@
     <Compile Include="Migrations\201706202059144_InitialCreate.Designer.cs">
       <DependentUpon>201706202059144_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706221823354_migration-bryce-1.cs" />
-    <Compile Include="Migrations\201706221823354_migration-bryce-1.Designer.cs">
-      <DependentUpon>201706221823354_migration-bryce-1.cs</DependentUpon>
+    <Compile Include="Migrations\201706231743433_2017-06-23.cs" />
+    <Compile Include="Migrations\201706231743433_2017-06-23.Designer.cs">
+      <DependentUpon>201706231743433_2017-06-23.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DailyInventory.cs" />
@@ -218,8 +218,8 @@
     <EmbeddedResource Include="Migrations\201706202059144_InitialCreate.resx">
       <DependentUpon>201706202059144_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706221823354_migration-bryce-1.resx">
-      <DependentUpon>201706221823354_migration-bryce-1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706231743433_2017-06-23.resx">
+      <DependentUpon>201706231743433_2017-06-23.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
