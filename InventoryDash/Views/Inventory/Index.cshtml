@@ -7,7 +7,8 @@
 <h2>Weekly Inventory - 
     @{ //Determining the week span of dates Monday to Sunday, based off today's date.
         int counter = 0;
-        int dayOfWeek = Convert.ToInt32( DateTime.Today.DayOfWeek);
+        int dayOfWeek = Convert.ToInt32(DateTime.Today.DayOfWeek);
+        int currentYear = Convert.ToInt32(DateTime.Today.Year);
         string mondayOfWeek = "";
         string sundayOfWeek = "";
         switch (dayOfWeek)
@@ -43,9 +44,15 @@
             default:
                 break;
         }
+    } 
 
-        
-    }@mondayOfWeek to @sundayOfWeek</h2>
+    <select id="yearSelector">
+        @for (int i = Convert.ToInt32( ViewData["startingYear"]); i <= currentYear; i++)
+        {
+            <option value="@i">@i.ToString()</option>
+        }
+    </select>
+    @mondayOfWeek to @sundayOfWeek</h2>
 <p>@ViewData["weekOfYear"]</p>
 
 @using (Html.BeginForm())
@@ -198,5 +205,10 @@
         </div>
 
     </div>
-    <input type="submit" value="Submit" class="pull-right" />
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <input type="submit" value="Submit Changes" class="btn btn-block btn-primary " />
+        </div>
+    </div>
+    
 } <!--//End of using tag -->
