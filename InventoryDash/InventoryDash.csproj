@@ -169,6 +169,10 @@
     <Compile Include="Migrations\201706231743433_2017-06-23.Designer.cs">
       <DependentUpon>201706231743433_2017-06-23.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706252231526_added_year_tracking.cs" />
+    <Compile Include="Migrations\201706252231526_added_year_tracking.Designer.cs">
+      <DependentUpon>201706252231526_added_year_tracking.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DailyInventory.cs" />
     <Compile Include="Models\Ingredient.cs" />
@@ -223,6 +227,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706231743433_2017-06-23.resx">
       <DependentUpon>201706231743433_2017-06-23.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706252231526_added_year_tracking.resx">
+      <DependentUpon>201706252231526_added_year_tracking.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
