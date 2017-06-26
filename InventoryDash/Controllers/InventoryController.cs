@@ -26,6 +26,7 @@ namespace InventoryDash.Controllers
 
             int weekOfYear = GetCurrentWeekOfYear();
             ViewData["weekOfYear"] = weekOfYear;
+            ViewData["startingYear"] = 2016;
 
             var sandwichesViewModel = (from s in db.Sandwiches
                                        from so in db.WeeklyInventorySandwiches
@@ -59,12 +60,12 @@ namespace InventoryDash.Controllers
 
             for (int i = 0; i < weeklyInventorySandwiches.Count(); i++)
             {
-                if(weeklyInventorySandwiches[i].QuantityDineIn != 0 || weeklyInventorySandwiches[i].QuantityToGo != 0)
+                if(weeklyInventorySandwiches[i].ID != 0 || weeklyInventorySandwiches[i].QuantityDineIn != 0 || weeklyInventorySandwiches[i].QuantityToGo != 0)
                 {
                     //Some quantity information was provided
                     //Calculate the cost and income values
                     weeklyInventorySandwiches[i].Cost = Convert.ToDecimal( CalculateSandwichCost(weeklyInventorySandwiches[i].SandwichId));
-                    weeklyInventorySandwiches[i].Cost = Convert.ToDecimal( CalculateSandwichIncome(weeklyInventorySandwiches[i].SandwichId));
+                    weeklyInventorySandwiches[i].Income = Convert.ToDecimal( CalculateSandwichIncome(weeklyInventorySandwiches[i].SandwichId));
 
                     
                     //Determine if a record already exists - 
@@ -79,51 +80,49 @@ namespace InventoryDash.Controllers
                         record.Cost = weeklyInventorySandwiches[i].Cost;
                         record.Income = weeklyInventorySandwiches[i].Income;
                         record.MealId = weeklyInventorySandwiches[i].MealId;
+                        record.WeekId = weeklyInventorySandwiches[i].WeekId;
                         db.SaveChanges();
                     }
                     else
                     {
                         //No, add the record.
-                        //If the sandwich 
                         db.WeeklyInventorySandwiches.Add(weeklyInventorySandwiches[i]);
                         db.SaveChanges();
-                    }
-
-                    //Ensure sandwiches available in multiple meals will show on the list
-                    //If a weekly inventory record is created for one meal and not the others, then
-                    // unless records are created for the other meals, then the sandwich will no longer
-                    // be displayed in the other meal's lists.
-                    //Get the list of sandwiches marked for both meals
-                    // For each sandwich, see if there are weeklyInventorySandwich entries for both
-                    //  meals. If there is not an entry for one of the meals, add it with 0 quantities.
-                    var sandwichesForBoth = (from s in db.Sandwiches
-                                             where s.Meal == InventoryDash.Models.meal.both
-                                             select s).ToList();
-
-                    foreach (var a in sandwichesForBoth)
-                    {
-                        var result = db.WeeklyInventorySandwiches.SingleOrDefault(x => x.SandwichId == a.ID && x.MealId == InventoryDash.Models.meal.breakfast && x.WeekId == weekOfYear);
-                        if (result == null)
-                        { // There are no records in breakfast, so add one
-                            WeeklyInventorySandwiches newRecord = new WeeklyInventorySandwiches() { Cost=0, Income=0, MealId=InventoryDash.Models.meal.breakfast, QuantityDineIn=0, QuantityToGo=0, SandwichId=a.ID, WeekId= weekOfYear };
-                            db.WeeklyInventorySandwiches.Add(newRecord);
-                            db.SaveChanges();
-                        }
-
-                        result = db.WeeklyInventorySandwiches.SingleOrDefault(x => x.SandwichId == a.ID && x.MealId == InventoryDash.Models.meal.lunch && x.WeekId == weekOfYear);
-                        if (result == null)
-                        { // There are no records in breakfast, so add one
-                            WeeklyInventorySandwiches newRecord = new WeeklyInventorySandwiches() { Cost = 0, Income = 0, MealId = InventoryDash.Models.meal.lunch, QuantityDineIn = 0, QuantityToGo = 0, SandwichId = a.ID, WeekId = weekOfYear };
-                            db.WeeklyInventorySandwiches.Add(newRecord);
-                            db.SaveChanges();
-                        }
-
-                    }
-
+                    }                    
                 }
             }
-            
-           
+            //Ensure sandwiches available in multiple meals will show on the list
+            //If a weekly inventory record is created for one meal and not the others, then
+            // unless records are created for the other meals, then the sandwich will no longer
+            // be displayed in the other meal's lists.
+            //Get the list of sandwiches marked for both meals
+            // For each sandwich, see if there are weeklyInventorySandwich entries for both
+            //  meals. If there is not an entry for one of the meals, add it with 0 quantities.
+            var sandwichesForBoth = (from s in db.Sandwiches
+                                     where s.Meal == InventoryDash.Models.meal.both
+                                     select s).ToList();
+
+            foreach (var a in sandwichesForBoth)
+            {
+                var result = db.WeeklyInventorySandwiches.SingleOrDefault(x => x.SandwichId == a.ID && x.MealId == InventoryDash.Models.meal.breakfast && x.WeekId == weekOfYear);
+                if (result == null)
+                { // There are no records in breakfast, so add one
+                    WeeklyInventorySandwiches newRecord = new WeeklyInventorySandwiches() { Cost = 0, Income = 0, MealId = InventoryDash.Models.meal.breakfast, QuantityDineIn = 0, QuantityToGo = 0, SandwichId = a.ID, WeekId = weekOfYear };
+                    db.WeeklyInventorySandwiches.Add(newRecord);
+                    db.SaveChanges();
+                }
+
+                result = db.WeeklyInventorySandwiches.SingleOrDefault(x => x.SandwichId == a.ID && x.MealId == InventoryDash.Models.meal.lunch && x.WeekId == weekOfYear);
+                if (result == null)
+                { // There are no records in breakfast, so add one
+                    WeeklyInventorySandwiches newRecord = new WeeklyInventorySandwiches() { Cost = 0, Income = 0, MealId = InventoryDash.Models.meal.lunch, QuantityDineIn = 0, QuantityToGo = 0, SandwichId = a.ID, WeekId = weekOfYear };
+                    db.WeeklyInventorySandwiches.Add(newRecord);
+                    db.SaveChanges();
+                }
+
+            }
+
+
             return RedirectToAction("Index");
         }
 
