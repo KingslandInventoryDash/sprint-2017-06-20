@@ -4,7 +4,7 @@
     ViewBag.Title = "Weekly Inventory";
 }
 
-<h2>Weekly Inventory - 
+<h2>Weekly Inventory - </h2>
     @{ //Determining the week span of dates Monday to Sunday, based off today's date.
         int counter = 0;
         int dayOfWeek = Convert.ToInt32(DateTime.Today.DayOfWeek);
@@ -45,15 +45,19 @@
                 break;
         }
     } 
+    @using (Html.BeginForm())
+    {
+        <select id="yearSelect">
+            @for (int i = Convert.ToInt32(ViewData["startingYear"]); i <= currentYear; i++)
+            {
+                <option value="@i">@i.ToString()</option>
+            }
+        </select>
+        <select id="weekSelect">
 
-    <select id="yearSelector">
-        @for (int i = Convert.ToInt32( ViewData["startingYear"]); i <= currentYear; i++)
-        {
-            <option value="@i">@i.ToString()</option>
-        }
-    </select>
-    @mondayOfWeek to @sundayOfWeek</h2>
-<p>@ViewData["weekOfYear"]</p>
+        </select>
+    }
+
 
 @using (Html.BeginForm())
 {
@@ -210,5 +214,5 @@
             <input type="submit" value="Submit Changes" class="btn btn-block btn-primary " />
         </div>
     </div>
-    
+    <script src="~/Scripts/WeekNumberSelector.js"></script>
 } <!--//End of using tag -->

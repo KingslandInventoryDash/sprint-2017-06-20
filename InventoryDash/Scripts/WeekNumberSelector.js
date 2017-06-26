@@ -1,29 +1,153 @@
 ﻿$(document).ready(function () {
-    //Set the date and week select elements to current values
+
+    $("#yearSelect").change(function () {
+        var selectedYear = $("#yearSelect option:selected").val();
+        var firstDay = new Date(selectedYear, 0, 1);
+        var weekList = [];
+        var firstFullWeekMonday;
+
+        var currentDate = new Date();
+        var week1 = new Date(currentDate.getFullYear(), 0, 4);
+
+        var currentWeek = 1 + Math.round(((currentDate.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
 
 
-    $("#yearSelector").change(function () {
-        //Get the value of the year selected.
-        $()
-        //Determine the list of weeks, Monday to Sunday for the year
+        switch (firstDay.getDay()) {
+            case 0:
+                //Sunday,
+                weekList.push(getWeekListText(0, firstDay, 0));
+                firstFullWeekMonday = firstDay;
+                firstFullWeekMonday.setDate(firstFullWeekMonday.getDate() + 1);
+                break;
+            case 1:
+                //Monday        
+                weekList.push("N/A");
+                firstFullWeekMonday = firstDay;
 
-        //Populate the select element with the list.
+                break;
+            case 2:
+                weekList.push(getWeekListText(0, firstDay, 5));
+                firstFullWeekMonday = firstDay;
+                firstFullWeekMonday.setDate(firstFullWeekMonday.getDate() + 6);
+                break;
+            case 3:
+                weekList.push(getWeekListText(0, firstDay, 4));
+                firstFullWeekMonday = firstDay;
+                firstFullWeekMonday.setDate(firstFullWeekMonday.getDate() + 5);
+                break;
+            case 4:
+                weekList.push(getWeekListText(0, firstDay, 3));
+                firstFullWeekMonday = firstDay;
+                firstFullWeekMonday.setDate(firstFullWeekMonday.getDate() + 4);
+                break;
+            case 5:
+                weekList.push(getWeekListText(0, firstDay, 2));
+                firstFullWeekMonday = firstDay;
+                firstFullWeekMonday.setDate(firstFullWeekMonday.getDate() + 3);
+                break;
+            case 6: //Saturday
+                weekList.push(getWeekListText(0, firstDay, 1));
+                firstFullWeekMonday = firstDay;
+                firstFullWeekMonday.setDate(firstFullWeekMonday.getDate() + 2);
+                break;
+            default:
+                break;
+        }
+
+        //Now loop to create listings for the weeks of the year
+        for (j = 1; j < 52; j++) {
+            weekList.push(getWeekListText(j, firstFullWeekMonday, 6));
+            firstFullWeekMonday.setDate(firstFullWeekMonday.getDate() + 7);
+        }
+
+        lastDayOfYear = new Date(selectedYear, 11, 31);
+
+        //Determine which day of the week the last day is
+        //Create the last week listing with just the remaining days in the year.
+        //firstFullWeekMonday is now the monday of the last week.
+        if (lastDayOfYear.getDate() - firstFullWeekMonday.getDate() > 6) {
+            //There is a week 53 to deal with.
+            //Do week 52:
+            weekList.push(getWeekListText(52, firstFullWeekMonday, 6));
+            firstFullWeekMonday.setDate(firstFullWeekMonday.getDate() + 7);
+            if (lastDayOfYear.getDay() == 0) {
+                //Year ends on Sunday, so the last week is a full week.
+                weekList.push(getWeekListText(53, firstFullWeekMonday, 6));
+            }
+            else {
+                weekList.push(getWeekListText(53, firstFullWeekMonday, lastDayOfYear.getDay() - 1));
+            }
+        } else {
+            if (lastDayOfYear.getDay() == 0) {
+                //Year ends on Sunday, so the last week is a full week.
+                weekList.push(getWeekListText(52, firstFullWeekMonday, 6));
+            }
+            else {
+                weekList.push(getWeekListText(52, firstFullWeekMonday, lastDayOfYear.getDay() - 1));
+            }
+        }
+
+        //Load the week selector dropdown
+        $("#weekSelect").empty().append("");
+        for (t = 0; t < weekList.length; t++) {
+            if (currentDate.getFullYear() == selectedYear) {
+                if (currentWeek == t) {
+                    $('#weekSelect').append($('<option>', {
+                        value: t,
+                        text: weekList[t],
+                        selected: true
+                    }));
+                } else {
+                    $('#weekSelect').append($('<option>', {
+                        value: t,
+                        text: weekList[t]
+                    }));
+                }
+            } else {
+                if (t == 0) {
+                    $('#weekSelect').append($('<option>', {
+                        value: t,
+                        text: weekList[t],
+                        selected: true
+                    }));
+                } else {
+                    $('#weekSelect').append($('<option>', {
+                        value: t,
+                        text: weekList[t]
+                    }));
+                }
+
+            }
+
+        }
+
     });
 
-    function getWeekListForYear (year) {
-
+    function getWeekListText(weekNumber, firstDay, weekLength) {
+        var text = ""
+        text += weekNumber + ": ";
+        text += formatDate(firstDay);
+        text += " to ";
+        var weekEndDay = new Date(firstDay.getFullYear(), firstDay.getMonth(), firstDay.getDate());
+        weekEndDay.setDate(weekEndDay.getDate() + weekLength);
+        text += formatDate(weekEndDay);
+        return text;
     }
 
-    Date.prototype.getWeek = function () {
-        var date = new Date(this.getTime());
-        date.setHours(0, 0, 0, 0);
-        // Thursday in current week decides the year.
-        date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
-        // January 4 is always in week 1.
-        var week1 = new Date(date.getFullYear(), 0, 4);
-        // Adjust to Thursday in week 1 and count number of weeks from date to week1.
-        return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000
-            - 3 + (week1.getDay() + 6) % 7) / 7);
-    }
+    function formatDate(date) {
+        var monthNames = [
+            "January", "February", "March",
+            "April", "May", "June", "July",
+            "August", "September", "October",
+            "November", "December"
+        ];
 
+        var dayName = ["Sunday", "Monday", "Tuesday", "Wednesday",
+            "Thursday", "Friday", "Saturday"];
+        var day = date.getDate();
+        var monthIndex = date.getMonth();
+        var year = date.getFullYear();
+        var dayOfWeek = date.getDay();
+        return dayName[dayOfWeek] + ', ' + day + ' ' + monthNames[monthIndex] + ' ' + year;
+    }
 });
