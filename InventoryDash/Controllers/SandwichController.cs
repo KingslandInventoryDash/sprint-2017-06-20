@@ -82,14 +82,9 @@ namespace InventoryDash.Controllers
         {
             if (ModelState.IsValid)
             {
-                //string foo = "Data Source=(LocalDb)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Riley\\InventoryDash4.mdf;Integrated Security=True;";
-                //var con = ConfigurationManager.ConnectionStrings[foo];
-                //string conString = con.ToString();
                 string conString = ConfigurationManager.ConnectionStrings["InventoryContext"].ConnectionString.ToString();
-                //SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionStringNameFromWebConfig"].ConnectionString);
                 SqlConnection conn = null;
                 conn = new SqlConnection(conString);
-                //conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionStringNameFromWebConfig"].ConnectionString);
                 conn.Open();
                 for (int i = 0; i < ingredient.Count(); i++)
                 {
