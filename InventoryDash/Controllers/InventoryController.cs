@@ -25,16 +25,20 @@ namespace InventoryDash.Controllers
         {
 
             int weekOfYear = GetCurrentWeekOfYear();
+            DateTime dateNow = DateTime.Now;
+            int currentYear = dateNow.Year;
             ViewData["weekOfYear"] = weekOfYear;
             ViewData["startingYear"] = 2016;
+            ViewData["selectedYear"] = currentYear;
 
             var sandwichesViewModel = (from s in db.Sandwiches
                                        from so in db.WeeklyInventorySandwiches
-                                       .Where(orders => s.ID == orders.SandwichId)
+                                       .Where(orders => s.ID == orders.SandwichId && orders.WeekId == weekOfYear && orders.Year == currentYear)
                                        .DefaultIfEmpty()
-                                       select new WeeklyInventorySandwichesViewModel{
-                                           ID=so.ID,
-                                           WeekId=so.WeekId,
+                                       select new WeeklyInventorySandwichesViewModel {
+                                           ID = so.ID,
+                                           WeekId = so.WeekId,
+                                           Year = so.Year,
                                            SandwichId=s.ID,
                                            QuantityToGo=so.QuantityToGo,
                                            QuantityDineIn=so.QuantityDineIn,
@@ -49,18 +53,95 @@ namespace InventoryDash.Controllers
             return View(sandwichesViewModel);
         }
 
+        [HttpGet]
+        public ActionResult IndexLoadWeekGet()
+        {
+            int weekSelected = Convert.ToInt32(TempData["selectedWeek"]);
+            int yearSelected = Convert.ToInt32(TempData["selectedYear"]);
+            
+            ViewData["weekOfYear"] = weekSelected;
+            ViewData["startingYear"] = 2016;
+            ViewData["selectedYear"] = yearSelected;
+
+            var sandwichesViewModel = (from s in db.Sandwiches
+                                       from so in db.WeeklyInventorySandwiches
+                                       .Where(orders => s.ID == orders.SandwichId && orders.WeekId == weekSelected && orders.Year == yearSelected)
+                                       .DefaultIfEmpty()
+                                       select new WeeklyInventorySandwichesViewModel
+                                       {
+                                           ID = so.ID,
+                                           WeekId = so.WeekId,
+                                           Year = so.Year,
+                                           SandwichId = s.ID,
+                                           QuantityToGo = so.QuantityToGo,
+                                           QuantityDineIn = so.QuantityDineIn,
+                                           MealId = so.MealId,
+                                           Cost = so.Cost,
+                                           Income = so.Income,
+                                           Name = s.Name,
+                                           Price = s.Price,
+                                           Meal = s.Meal
+                                       }).ToList();
+
+
+            return View("Index", sandwichesViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult IndexLoadWeek()
+        {
+            int? weekSelected = Convert.ToInt32(Request.Form["weekSelect"]);
+            if(weekSelected == null)
+            {
+                weekSelected = Convert.ToInt32(TempData["selectedWeek"]);
+            }
+            int? yearSelected = Convert.ToInt32(Request.Form["yearSelect"]);
+            if (yearSelected == null)
+            {
+                yearSelected = Convert.ToInt32(TempData["selectedYear"]);
+            }
+            ViewData["weekOfYear"] = weekSelected;
+            ViewData["startingYear"] = 2016;
+            ViewData["selectedYear"] = yearSelected;
+
+            var sandwichesViewModel = (from s in db.Sandwiches
+                                       from so in db.WeeklyInventorySandwiches
+                                       .Where(orders => s.ID == orders.SandwichId && orders.WeekId == weekSelected && orders.Year == yearSelected)
+                                       .DefaultIfEmpty()
+                                       select new WeeklyInventorySandwichesViewModel
+                                       {
+                                           ID = so.ID,
+                                           WeekId = so.WeekId,
+                                           Year = so.Year,
+                                           SandwichId = s.ID,
+                                           QuantityToGo = so.QuantityToGo,
+                                           QuantityDineIn = so.QuantityDineIn,
+                                           MealId = so.MealId,
+                                           Cost = so.Cost,
+                                           Income = so.Income,
+                                           Name = s.Name,
+                                           Price = s.Price,
+                                           Meal = s.Meal
+                                       }).ToList();
+
+
+            return View("Index", sandwichesViewModel);
+        }
+
+
         // POST: Index page
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index([Bind(Include = "ID, WeekId, SandwichId, MealId, QuantityToGo, QuantityDineIn, Cost, Income")] WeeklyInventorySandwiches[] weeklyInventorySandwiches)
+        public ActionResult Index([Bind(Include = "ID, WeekId, Year, SandwichId, MealId, QuantityToGo, QuantityDineIn, Cost, Income")] WeeklyInventorySandwiches[] weeklyInventorySandwiches)
         {
             int weekOfYear = weeklyInventorySandwiches[0].WeekId;
+            int Year = weeklyInventorySandwiches[0].Year;
             //Cycle through the array of Sandwich information and decide if an entry needs to be made.            
 
             for (int i = 0; i < weeklyInventorySandwiches.Count(); i++)
             {
-                if(weeklyInventorySandwiches[i].ID != 0 || weeklyInventorySandwiches[i].QuantityDineIn != 0 || weeklyInventorySandwiches[i].QuantityToGo != 0)
-                {
+               // if(weeklyInventorySandwiches[i].ID != 0 || weeklyInventorySandwiches[i].QuantityDineIn != 0 || weeklyInventorySandwiches[i].QuantityToGo != 0)
+                //{
                     //Some quantity information was provided
                     //Calculate the cost and income values
                     weeklyInventorySandwiches[i].Cost = Convert.ToDecimal( CalculateSandwichCost(weeklyInventorySandwiches[i].SandwichId));
@@ -80,6 +161,7 @@ namespace InventoryDash.Controllers
                         record.Income = weeklyInventorySandwiches[i].Income;
                         record.MealId = weeklyInventorySandwiches[i].MealId;
                         record.WeekId = weeklyInventorySandwiches[i].WeekId;
+                        record.Year = weeklyInventorySandwiches[i].Year;
                         db.SaveChanges();
                     }
                     else
@@ -88,7 +170,7 @@ namespace InventoryDash.Controllers
                         db.WeeklyInventorySandwiches.Add(weeklyInventorySandwiches[i]);
                         db.SaveChanges();
                     }                    
-                }
+                //}
             }
             //Ensure sandwiches available in multiple meals will show on the list
             //If a weekly inventory record is created for one meal and not the others, then
@@ -103,26 +185,28 @@ namespace InventoryDash.Controllers
 
             foreach (var a in sandwichesForBoth)
             {
-                var result = db.WeeklyInventorySandwiches.SingleOrDefault(x => x.SandwichId == a.ID && x.MealId == InventoryDash.Models.meal.breakfast && x.WeekId == weekOfYear);
+                var result = db.WeeklyInventorySandwiches.SingleOrDefault(x => x.SandwichId == a.ID && x.MealId == InventoryDash.Models.meal.breakfast && x.WeekId == weekOfYear && x.Year == Year);
                 if (result == null)
                 { // There are no records in breakfast, so add one
-                    WeeklyInventorySandwiches newRecord = new WeeklyInventorySandwiches() { Cost = 0, Income = 0, MealId = InventoryDash.Models.meal.breakfast, QuantityDineIn = 0, QuantityToGo = 0, SandwichId = a.ID, WeekId = weekOfYear };
+                    WeeklyInventorySandwiches newRecord = new WeeklyInventorySandwiches() { Cost = 0, Income = 0, MealId = InventoryDash.Models.meal.breakfast, QuantityDineIn = 0, QuantityToGo = 0, SandwichId = a.ID, WeekId = weekOfYear, Year = Year };
                     db.WeeklyInventorySandwiches.Add(newRecord);
                     db.SaveChanges();
                 }
 
-                result = db.WeeklyInventorySandwiches.SingleOrDefault(x => x.SandwichId == a.ID && x.MealId == InventoryDash.Models.meal.lunch && x.WeekId == weekOfYear);
+                result = db.WeeklyInventorySandwiches.SingleOrDefault(x => x.SandwichId == a.ID && x.MealId == InventoryDash.Models.meal.lunch && x.WeekId == weekOfYear && x.Year == Year);
                 if (result == null)
                 { // There are no records in breakfast, so add one
-                    WeeklyInventorySandwiches newRecord = new WeeklyInventorySandwiches() { Cost = 0, Income = 0, MealId = InventoryDash.Models.meal.lunch, QuantityDineIn = 0, QuantityToGo = 0, SandwichId = a.ID, WeekId = weekOfYear };
+                    WeeklyInventorySandwiches newRecord = new WeeklyInventorySandwiches() { Cost = 0, Income = 0, MealId = InventoryDash.Models.meal.lunch, QuantityDineIn = 0, QuantityToGo = 0, SandwichId = a.ID, WeekId = weekOfYear, Year = Year };
                     db.WeeklyInventorySandwiches.Add(newRecord);
                     db.SaveChanges();
                 }
 
             }
 
-
-            return RedirectToAction("Index");
+            TempData["selectedYear"] = Year;
+            TempData["selectedWeek"] = weekOfYear;
+            return RedirectToAction( "IndexLoadWeekGet");
+            
         }
 
         private double? CalculateSandwichIncome(int sandwichId)

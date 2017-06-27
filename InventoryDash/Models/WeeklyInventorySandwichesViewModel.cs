@@ -11,7 +11,7 @@ namespace InventoryDash.Models
     {
         public int? ID { get; set; }
         public int? WeekId { get; set; }
-        public int Year { get; set; }
+        public int? Year { get; set; }
         public int SandwichId { get; set; }
         public int? QuantityToGo { get; set; }
         public int? QuantityDineIn { get; set; }
