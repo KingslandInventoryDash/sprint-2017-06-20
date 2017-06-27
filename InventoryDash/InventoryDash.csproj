@@ -161,7 +161,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-<<<<<<< HEAD
+
     <Compile Include="Migrations\201706261916486_Initial.cs" />
     <Compile Include="Migrations\201706261916486_Initial.Designer.cs">
       <DependentUpon>201706261916486_Initial.cs</DependentUpon>
@@ -169,11 +169,7 @@
     <Compile Include="Migrations\201706262137337_addedNumPortions.cs" />
     <Compile Include="Migrations\201706262137337_addedNumPortions.Designer.cs">
       <DependentUpon>201706262137337_addedNumPortions.cs</DependentUpon>
-=======
-    <Compile Include="Migrations\201706261910526_Initial.cs" />
-    <Compile Include="Migrations\201706261910526_Initial.Designer.cs">
-      <DependentUpon>201706261910526_Initial.cs</DependentUpon>
->>>>>>> master
+
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DailyInventory.cs" />
@@ -219,7 +215,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-<<<<<<< HEAD
+
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201706261916486_Initial.resx">
       <DependentUpon>201706261916486_Initial.cs</DependentUpon>
@@ -227,15 +223,8 @@
     <EmbeddedResource Include="Migrations\201706262137337_addedNumPortions.resx">
       <DependentUpon>201706262137337_addedNumPortions.cs</DependentUpon>
     </EmbeddedResource>
-=======
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706261910526_Initial.resx">
-      <DependentUpon>201706261910526_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
->>>>>>> master
+
+
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
