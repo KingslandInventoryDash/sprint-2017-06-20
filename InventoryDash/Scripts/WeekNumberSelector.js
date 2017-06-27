@@ -2,6 +2,8 @@
 
     $("#yearSelect").change(function () {
         var selectedYear = $("#yearSelect option:selected").val();
+        var selectedWeek = $("#selectedWeekHolder").val();
+        console.log(selectedWeek);
         var firstDay = new Date(selectedYear, 0, 1);
         var weekList = [];
         var firstFullWeekMonday;
@@ -90,8 +92,8 @@
         //Load the week selector dropdown
         $("#weekSelect").empty().append("");
         for (t = 0; t < weekList.length; t++) {
-            if (currentDate.getFullYear() == selectedYear) {
-                if (currentWeek == t) {
+            if (selectedWeek != 0) {
+                if (selectedWeek == t) {
                     $('#weekSelect').append($('<option>', {
                         value: t,
                         text: weekList[t],
@@ -104,24 +106,43 @@
                     }));
                 }
             } else {
-                if (t == 0) {
-                    $('#weekSelect').append($('<option>', {
-                        value: t,
-                        text: weekList[t],
-                        selected: true
-                    }));
+                if (currentDate.getFullYear() == selectedYear) {
+                    if (currentWeek == t) {
+                        $('#weekSelect').append($('<option>', {
+                            value: t,
+                            text: weekList[t],
+                            selected: true
+                        }));
+                    } else {
+                        $('#weekSelect').append($('<option>', {
+                            value: t,
+                            text: weekList[t]
+                        }));
+                    }
                 } else {
-                    $('#weekSelect').append($('<option>', {
-                        value: t,
-                        text: weekList[t]
-                    }));
-                }
+                    if (t == 0) {
+                        $('#weekSelect').append($('<option>', {
+                            value: t,
+                            text: weekList[t],
+                            selected: true
+                        }));
+                    } else {
+                        $('#weekSelect').append($('<option>', {
+                            value: t,
+                            text: weekList[t]
+                        }));
+                    }
 
+                }
             }
+            
 
         }
 
-    });
+    }).change();
+
+
+
 
     function getWeekListText(weekNumber, firstDay, weekLength) {
         var text = ""

@@ -7,13 +7,13 @@ namespace InventoryDash.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class added_year_tracking : IMigrationMetadata
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(added_year_tracking));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201706252231526_added_year_tracking"; }
+            get { return "201706261910526_Initial"; }
         }
         
         string IMigrationMetadata.Source

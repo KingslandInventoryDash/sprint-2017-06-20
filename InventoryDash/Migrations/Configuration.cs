@@ -10,9 +10,6 @@ namespace InventoryDash.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-
-            ContextKey = "InventoryDash.DAL.InventoryContext";
-
         }
 
         protected override void Seed(InventoryDash.DAL.InventoryContext context)
