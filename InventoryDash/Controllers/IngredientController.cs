@@ -47,7 +47,7 @@ namespace InventoryDash.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Price,Category")] Ingredient ingredient)
+        public ActionResult Create([Bind(Include = "ID,Name,Price,NumPortions,Category")] Ingredient ingredient)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace InventoryDash.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Price,Category")] Ingredient ingredient)
+        public ActionResult Edit([Bind(Include = "ID,Name,Price,NumPortions,Category")] Ingredient ingredient)
         {
             if (ModelState.IsValid)
             {

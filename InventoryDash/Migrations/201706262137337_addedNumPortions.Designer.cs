@@ -7,13 +7,13 @@ namespace InventoryDash.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class _20170623 : IMigrationMetadata
+    public sealed partial class addedNumPortions : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(_20170623));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addedNumPortions));
         
         string IMigrationMetadata.Id
         {
-            get { return "201706231743433_2017-06-23"; }
+            get { return "201706262137337_addedNumPortions"; }
         }
         
         string IMigrationMetadata.Source

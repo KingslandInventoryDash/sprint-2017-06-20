@@ -72,6 +72,7 @@
                         <table class="table">
                             <tr>
                                 <th>Item</th>
+                                <th>Cost</th>
                                 <th>Qty (Dine-In)</th>
                                 <th>Qty (To-Go)</th>
                             </tr>
@@ -89,7 +90,9 @@
                                                 @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].ID", s.ID)
                                                 @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].Cost", s.Cost)
                                                 @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].Income", s.Income)
-                                            </td>                                            
+                                            </td>   
+                                            
+                                            <td>@s.GetSandwichCost()</td>
                                             
                                             <td class="col-md-1">@Html.TextBox("weeklyInventorySandwiches[" + @counter + "].QuantityDineIn", s.QuantityDineIn)</td>
                                             <td class="col-md-1">@Html.TextBox("weeklyInventorySandwiches[" + @counter + "].QuantityToGo", s.QuantityToGo)</td>
@@ -111,10 +114,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8">
-                        <h3>Lunch Items</h3>
+                        <h3>Lunch 
+                        </h3>
                         <table class="table">
                             <tr>
                                 <th>Item</th>
+                                <th>Cost</th>
                                 <th>Qty (Dine-In)</th>
                                 <th>Qty (To-Go)</th>
                             </tr>
@@ -124,13 +129,18 @@
                                     <tr>
                                         @if (s.MealId == InventoryDash.Models.meal.lunch || (s.Meal == InventoryDash.Models.meal.both && s.ID == null) || (s.Meal == InventoryDash.Models.meal.lunch && s.ID == null))
                                         {
-                                            <td> @s.Name 
+                                            <td> @s.Name
+                                                
                                                 @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].SandwichID", s.SandwichId)
                                                 @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].MealId", InventoryDash.Models.meal.lunch)@*Making sure the meal value for sandwiches marked both, create records for lunch.*@
                                                 @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].WeekId", s.WeekId > 0 ? s.WeekId : ViewData["weekOfYear"])
                                                 @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].ID", s.ID)
                                                 @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].Cost", s.Cost)
                                                 @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].Income", s.Income)
+                                            </td>
+
+                                            <td>
+                                                @s.GetSandwichCost()
                                             </td>
 
                                             <td class="col-md-1">@Html.TextBox("weeklyInventorySandwiches[" + @counter + "].QuantityDineIn", s.QuantityDineIn)</td>
@@ -157,6 +167,7 @@
                         <table class="table">
                             <tr>
                                 <th>Item</th>
+                                <th>Cost</th>
                                 <th>Qty (Dine-In)</th>
                                 <th>Qty (To-Go)</th>
                             </tr>
@@ -184,6 +195,7 @@
                         <table class="table">
                             <tr>
                                 <th>Item</th>
+                                <th>Cost</th>
                                 <th>Qty (Dine-In)</th>
                                 <th>Qty (To-Go</th>
                             </tr>

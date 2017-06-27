@@ -36,21 +36,21 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.IngredientString)
-        </dt>
+            @*@Html.DisplayNameFor(model => model.IngredientString)*@
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.IngredientString)
-        </dd>
+            <dd>
+                @*Html.DisplayFor(model => model.IngredientString)*@
+            </dd>
 
-    </dl>
+        </dl>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
-</div>
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>

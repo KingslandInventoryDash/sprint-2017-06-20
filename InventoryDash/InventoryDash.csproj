@@ -161,17 +161,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706202059144_InitialCreate.cs" />
-    <Compile Include="Migrations\201706202059144_InitialCreate.Designer.cs">
-      <DependentUpon>201706202059144_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201706261916486_Initial.cs" />
+    <Compile Include="Migrations\201706261916486_Initial.Designer.cs">
+      <DependentUpon>201706261916486_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706231743433_2017-06-23.cs" />
-    <Compile Include="Migrations\201706231743433_2017-06-23.Designer.cs">
-      <DependentUpon>201706231743433_2017-06-23.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706252231526_added_year_tracking.cs" />
-    <Compile Include="Migrations\201706252231526_added_year_tracking.Designer.cs">
-      <DependentUpon>201706252231526_added_year_tracking.cs</DependentUpon>
+    <Compile Include="Migrations\201706262137337_addedNumPortions.cs" />
+    <Compile Include="Migrations\201706262137337_addedNumPortions.Designer.cs">
+      <DependentUpon>201706262137337_addedNumPortions.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DailyInventory.cs" />
@@ -217,20 +213,16 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <EmbeddedResource Include="Migrations\201706261916486_Initial.resx">
+      <DependentUpon>201706261916486_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706262137337_addedNumPortions.resx">
+      <DependentUpon>201706262137337_addedNumPortions.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706202059144_InitialCreate.resx">
-      <DependentUpon>201706202059144_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706231743433_2017-06-23.resx">
-      <DependentUpon>201706231743433_2017-06-23.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706252231526_added_year_tracking.resx">
-      <DependentUpon>201706252231526_added_year_tracking.cs</DependentUpon>
-    </EmbeddedResource>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

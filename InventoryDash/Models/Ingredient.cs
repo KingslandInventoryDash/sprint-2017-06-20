@@ -16,6 +16,7 @@ namespace InventoryDash.Models
         public int ID { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
+        public int NumPortions { get; set; }
         public category Category { get; set; }
         public bool UsedInSandwich { get; set; }
 

@@ -3,16 +3,16 @@ namespace InventoryDash.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class added_year_tracking : DbMigration
+    public partial class addedNumPortions : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.WeeklyInventorySandwiches", "Year", c => c.Int(nullable: false));
+            AddColumn("dbo.Ingredient", "NumPortions", c => c.Int(nullable: false));
         }
         
         public override void Down()
         {
-            DropColumn("dbo.WeeklyInventorySandwiches", "Year");
+            DropColumn("dbo.Ingredient", "NumPortions");
         }
     }
 }

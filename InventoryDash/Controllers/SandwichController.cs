@@ -86,6 +86,16 @@ namespace InventoryDash.Controllers
                 SqlConnection conn = null;
                 conn = new SqlConnection(conString);
                 conn.Open();
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.AddWithValue("@var1", sandwichId);
+                    cmd.CommandText = "DELETE FROM SandwichIngredient WHERE Sandwich_ID=@var1";
+                    
+                    //cmd.Parameters.AddWithValue("@var2", ingredient[i]);
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                }
                 for (int i = 0; i < ingredient.Count(); i++)
                 {
                     using (SqlCommand cmd = new SqlCommand())
@@ -102,6 +112,17 @@ namespace InventoryDash.Controllers
                 return RedirectToAction("Index");
             }
             return View();
+        }
+        
+        public double GetCost(int id)
+        {
+            double output = 0.0f;
+            Sandwich sandwich = db.Sandwiches.Find(id);
+            foreach (Ingredient ing in sandwich.Ingredients)
+            {
+                output += ing.Price / ing.NumPortions;
+            }
+            return output;
         }
 
         // GET: Sandwich/Edit/5
@@ -130,7 +151,7 @@ namespace InventoryDash.Controllers
             {
                 db.Entry(sandwich).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AddIngredients", new { id = sandwich.ID });
             }
             return View(sandwich);
         }
@@ -158,6 +179,22 @@ namespace InventoryDash.Controllers
             Sandwich sandwich = db.Sandwiches.Find(id);
             db.Sandwiches.Remove(sandwich);
             db.SaveChanges();
+            string conString = ConfigurationManager.ConnectionStrings["InventoryContext"].ConnectionString.ToString();
+            SqlConnection conn = null;
+            conn = new SqlConnection(conString);
+            conn.Open();
+            //int sandwichId = id;
+            
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                cmd.Connection = conn;
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("@var1", id);
+                cmd.CommandText = "DELETE FROM SandwichIngredient WHERE Sandwich_ID=@var1";
+
+                //cmd.Parameters.AddWithValue("@var2", ingredient[i]);
+                int rowsAffected = cmd.ExecuteNonQuery();
+            }
             return RedirectToAction("Index");
         }
 

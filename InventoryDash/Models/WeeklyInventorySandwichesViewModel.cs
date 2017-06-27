@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InventoryDash.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,5 +21,19 @@ namespace InventoryDash.Models
         public string Name { get; set; }
         public double? Price { get; set; }
         public meal Meal { get; set; }
+        private InventoryContext db = new InventoryContext();
+        public double SandwichCost;
+        public string GetSandwichCost()
+        {
+            //double output = 0.0;
+            Sandwich sandwich = db.Sandwiches.Find(this.SandwichId);
+            double temp = sandwich.GetCost();
+            temp *= 100;
+            temp = Math.Round(temp);
+            temp /= 100;
+            string output = "$"+temp.ToString();
+            
+            return output;
+        }
     }
 }
