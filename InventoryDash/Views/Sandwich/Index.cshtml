@@ -21,6 +21,7 @@
             <tr>
                 <th>@Html.DisplayNameFor(model => model.Name)</th>
                 <th>@Html.DisplayNameFor(model => model.Price)</th>
+                <th>@Html.DisplayNameFor(model => model.CurrentCost)</th>
                 <th>@Html.DisplayNameFor(model => model.Ingredients)</th>
             </tr>
             @foreach (InventoryDash.Models.Sandwich s in Model)
@@ -31,6 +32,8 @@
                     <tr>
                         <td>@Html.DisplayFor(modelItem => s.Name)</td>
                         <td>@Html.DisplayFor(modelItem => s.Price)</td>
+                        <td>@s.PrintCost()</td>
+                        
                         <td>@ingredients</td>
                         <td>
                             @Html.ActionLink("Edit", "Edit", new { id = s.ID }) |
