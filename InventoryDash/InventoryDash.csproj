@@ -127,10 +127,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\InventoryDash4.mdf" />
-    <Content Include="App_Data\InventoryDash4_log.ldf">
-      <DependentUpon>InventoryDash4.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
@@ -148,7 +144,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\WeekNumberSelector.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -161,7 +159,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-
     <Compile Include="Migrations\201706261916486_Initial.cs" />
     <Compile Include="Migrations\201706261916486_Initial.Designer.cs">
       <DependentUpon>201706261916486_Initial.cs</DependentUpon>
@@ -169,7 +166,6 @@
     <Compile Include="Migrations\201706262137337_addedNumPortions.cs" />
     <Compile Include="Migrations\201706262137337_addedNumPortions.Designer.cs">
       <DependentUpon>201706262137337_addedNumPortions.cs</DependentUpon>
-
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DailyInventory.cs" />
@@ -215,7 +211,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201706261916486_Initial.resx">
       <DependentUpon>201706261916486_Initial.cs</DependentUpon>
@@ -223,11 +218,12 @@
     <EmbeddedResource Include="Migrations\201706262137337_addedNumPortions.resx">
       <DependentUpon>201706262137337_addedNumPortions.cs</DependentUpon>
     </EmbeddedResource>
-
-
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
