@@ -7,7 +7,7 @@ namespace InventoryDash.Migrations
     {
         public override void Up()
         {
-           /* CreateTable(
+           CreateTable(
                 "dbo.Ingredient",
                 c => new
                     {
@@ -29,7 +29,7 @@ namespace InventoryDash.Migrations
                         Meal = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
-            */
+            
             CreateTable(
                 "dbo.WeeklyInventoryDrinks",
                 c => new
@@ -69,7 +69,7 @@ namespace InventoryDash.Migrations
                         Income = c.Decimal(nullable: false, precision: 18, scale: 2),
                     })
                 .PrimaryKey(t => t.ID);
-           /* 
+            
             CreateTable(
                 "dbo.SandwichIngredient",
                 c => new
@@ -82,7 +82,7 @@ namespace InventoryDash.Migrations
                 .ForeignKey("dbo.Ingredient", t => t.Ingredient_ID, cascadeDelete: true)
                 .Index(t => t.Sandwich_ID)
                 .Index(t => t.Ingredient_ID);
-            */
+            
         }
         
         public override void Down()
