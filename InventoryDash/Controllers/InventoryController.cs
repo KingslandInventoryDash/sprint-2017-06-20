@@ -53,11 +53,53 @@ namespace InventoryDash.Controllers
             return View(sandwichesViewModel);
         }
 
+        [HttpGet]
+        public ActionResult IndexLoadWeekGet()
+        {
+            int weekSelected = Convert.ToInt32(TempData["selectedWeek"]);
+            int yearSelected = Convert.ToInt32(TempData["selectedYear"]);
+            
+            ViewData["weekOfYear"] = weekSelected;
+            ViewData["startingYear"] = 2016;
+            ViewData["selectedYear"] = yearSelected;
+
+            var sandwichesViewModel = (from s in db.Sandwiches
+                                       from so in db.WeeklyInventorySandwiches
+                                       .Where(orders => s.ID == orders.SandwichId && orders.WeekId == weekSelected && orders.Year == yearSelected)
+                                       .DefaultIfEmpty()
+                                       select new WeeklyInventorySandwichesViewModel
+                                       {
+                                           ID = so.ID,
+                                           WeekId = so.WeekId,
+                                           Year = so.Year,
+                                           SandwichId = s.ID,
+                                           QuantityToGo = so.QuantityToGo,
+                                           QuantityDineIn = so.QuantityDineIn,
+                                           MealId = so.MealId,
+                                           Cost = so.Cost,
+                                           Income = so.Income,
+                                           Name = s.Name,
+                                           Price = s.Price,
+                                           Meal = s.Meal
+                                       }).ToList();
+
+
+            return View("Index", sandwichesViewModel);
+        }
+
         [HttpPost]
         public ActionResult IndexLoadWeek()
         {
-            int weekSelected = Convert.ToInt32(Request.Form["weekSelect"]);
-            int yearSelected = Convert.ToInt32(Request.Form["yearSelect"]);
+            int? weekSelected = Convert.ToInt32(Request.Form["weekSelect"]);
+            if(weekSelected == null)
+            {
+                weekSelected = Convert.ToInt32(TempData["selectedWeek"]);
+            }
+            int? yearSelected = Convert.ToInt32(Request.Form["yearSelect"]);
+            if (yearSelected == null)
+            {
+                yearSelected = Convert.ToInt32(TempData["selectedYear"]);
+            }
             ViewData["weekOfYear"] = weekSelected;
             ViewData["startingYear"] = 2016;
             ViewData["selectedYear"] = yearSelected;
@@ -98,8 +140,8 @@ namespace InventoryDash.Controllers
 
             for (int i = 0; i < weeklyInventorySandwiches.Count(); i++)
             {
-                if(weeklyInventorySandwiches[i].ID != 0 || weeklyInventorySandwiches[i].QuantityDineIn != 0 || weeklyInventorySandwiches[i].QuantityToGo != 0)
-                {
+               // if(weeklyInventorySandwiches[i].ID != 0 || weeklyInventorySandwiches[i].QuantityDineIn != 0 || weeklyInventorySandwiches[i].QuantityToGo != 0)
+                //{
                     //Some quantity information was provided
                     //Calculate the cost and income values
                     weeklyInventorySandwiches[i].Cost = Convert.ToDecimal( CalculateSandwichCost(weeklyInventorySandwiches[i].SandwichId));
@@ -128,7 +170,7 @@ namespace InventoryDash.Controllers
                         db.WeeklyInventorySandwiches.Add(weeklyInventorySandwiches[i]);
                         db.SaveChanges();
                     }                    
-                }
+                //}
             }
             //Ensure sandwiches available in multiple meals will show on the list
             //If a weekly inventory record is created for one meal and not the others, then
@@ -161,8 +203,10 @@ namespace InventoryDash.Controllers
 
             }
 
-
-            return RedirectToAction("Index");
+            TempData["selectedYear"] = Year;
+            TempData["selectedWeek"] = weekOfYear;
+            return RedirectToAction( "IndexLoadWeekGet");
+            
         }
 
         private double? CalculateSandwichIncome(int sandwichId)

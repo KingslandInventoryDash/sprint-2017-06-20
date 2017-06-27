@@ -92,50 +92,19 @@
         //Load the week selector dropdown
         $("#weekSelect").empty().append("");
         for (t = 0; t < weekList.length; t++) {
-            if (selectedWeek != 0) {
-                if (selectedWeek == t) {
-                    $('#weekSelect').append($('<option>', {
-                        value: t,
-                        text: weekList[t],
-                        selected: true
-                    }));
-                } else {
-                    $('#weekSelect').append($('<option>', {
-                        value: t,
-                        text: weekList[t]
-                    }));
-                }
-            } else {
-                if (currentDate.getFullYear() == selectedYear) {
-                    if (currentWeek == t) {
-                        $('#weekSelect').append($('<option>', {
-                            value: t,
-                            text: weekList[t],
-                            selected: true
-                        }));
-                    } else {
-                        $('#weekSelect').append($('<option>', {
-                            value: t,
-                            text: weekList[t]
-                        }));
-                    }
-                } else {
-                    if (t == 0) {
-                        $('#weekSelect').append($('<option>', {
-                            value: t,
-                            text: weekList[t],
-                            selected: true
-                        }));
-                    } else {
-                        $('#weekSelect').append($('<option>', {
-                            value: t,
-                            text: weekList[t]
-                        }));
-                    }
 
-                }
+            if (selectedWeek == t) {
+                $('#weekSelect').append($('<option>', {
+                    value: t,
+                    text: weekList[t],
+                    selected: true
+                }));
+            } else {
+                $('#weekSelect').append($('<option>', {
+                    value: t,
+                    text: weekList[t]
+                }));
             }
-            
 
         }
 

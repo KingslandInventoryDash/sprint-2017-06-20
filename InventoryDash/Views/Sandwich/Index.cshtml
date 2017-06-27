@@ -53,18 +53,19 @@
                 <th>@Html.DisplayNameFor(model => model.Price)</th>
                 <th>@Html.DisplayNameFor(model => model.Ingredients)</th>
             </tr>
-            @foreach (var item in Model)
+            @foreach (InventoryDash.Models.Sandwich s in Model)
             {
-                if (item.Meal == InventoryDash.Models.meal.lunch || item.Meal == InventoryDash.Models.meal.both)
+                if (s.Meal == InventoryDash.Models.meal.lunch || s.Meal == InventoryDash.Models.meal.both)
                 {
+                    string ingredients = s.GetIngredients(s);
                     <tr>
-                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Price)</td>
-                        <td></td>
+                        <td>@Html.DisplayFor(modelItem => s.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => s.Price)</td>
+                        <td>@ingredients</td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                            @Html.ActionLink("Edit", "Edit", new { id = s.ID }) |
+                            @Html.ActionLink("Details", "Details", new { id = s.ID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = s.ID })
                         </td>
                     </tr>
                 }
