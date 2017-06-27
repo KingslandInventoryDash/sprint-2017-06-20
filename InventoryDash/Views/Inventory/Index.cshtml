@@ -4,8 +4,10 @@
     ViewBag.Title = "Weekly Inventory";
 }
 
-<h2>Weekly Inventory - 
-    @{ //Determining the week span of dates Monday to Sunday, based off today's date.
+<h2>Weekly Inventory - </h2>
+    @{ 
+        int selectedYear = Convert.ToInt32( ViewData["selectedYear"]);
+        //Determining the week span of dates Monday to Sunday, based off today's date.
         int counter = 0;
         int dayOfWeek = Convert.ToInt32(DateTime.Today.DayOfWeek);
         int currentYear = Convert.ToInt32(DateTime.Today.Year);
@@ -45,20 +47,32 @@
                 break;
         }
     } 
+    @using (Html.BeginForm("IndexLoadWeek", "Inventory"))
+    {
+        <select id = "yearSelect" name="yearSelect">
+            @for(int i = Convert.ToInt32(ViewData["startingYear"]); i <= currentYear; i++)
+            {
+                if (i == Convert.ToInt32(ViewData["selectedYear"]))
+                {
+                    <option value = "@i" selected> @i.ToString() </option>
+                }
+                else
+                {
+                    <option value = "@i"> @i.ToString() </option>
+                }
+            }
+        </select>
+        <select id = "weekSelect" name="weekSelect">
+        </select>
+        @Html.Hidden("selectedWeekHolder", ViewData["weekOfYear"].ToString())
+        <input type = "submit" class="btn btn-primary" value="Load Selected Week" />
+    }
 
-    <select id="yearSelector">
-        @for (int i = Convert.ToInt32( ViewData["startingYear"]); i <= currentYear; i++)
-        {
-            <option value="@i">@i.ToString()</option>
-        }
-    </select>
-    @mondayOfWeek to @sundayOfWeek</h2>
-<p>@ViewData["weekOfYear"]</p>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <ul class="nav nav-tabs">
+@using (Html.BeginForm("Index", "Inventory"))
+    {
+        @Html.AntiForgeryToken()
+        <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#breakfast">Breakfast</a></li>
         <li><a data-toggle="tab" href="#lunch">Lunch</a></li>
     </ul>
@@ -76,16 +90,18 @@
                                 <th>Qty (To-Go)</th>
                             </tr>
                             <tbody>
-                                
+
+
                                 @foreach (var s in (List<InventoryDash.Models.WeeklyInventorySandwichesViewModel>) Model)
-                                {
+    {
                                     <tr>
                                         @if (s.MealId == InventoryDash.Models.meal.breakfast || (s.Meal == InventoryDash.Models.meal.both && s.ID == null) || (s.Meal == InventoryDash.Models.meal.breakfast && s.ID == null))
                                         {
-                                            <td>@s.Name 
+                                            <td>@s.Name
                                                 @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].SandwichID", s.SandwichId)
                                                 @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].MealId", InventoryDash.Models.meal.breakfast) @*Making sure items marked both, create records marked breakfast*@
                                                 @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].WeekId", s.WeekId > 0? s.WeekId: ViewData["weekOfYear"])
+                                                @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].Year", s.Year > 0 ? s.Year : ViewData["selectedYear"])        
                                                 @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].ID", s.ID)
                                                 @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].Cost", s.Cost)
                                                 @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].Income", s.Income)
@@ -128,6 +144,7 @@
                                                 @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].SandwichID", s.SandwichId)
                                                 @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].MealId", InventoryDash.Models.meal.lunch)@*Making sure the meal value for sandwiches marked both, create records for lunch.*@
                                                 @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].WeekId", s.WeekId > 0 ? s.WeekId : ViewData["weekOfYear"])
+                                                @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].Year", s.Year > 0 ? s.Year : ViewData["selectedYear"])
                                                 @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].ID", s.ID)
                                                 @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].Cost", s.Cost)
                                                 @Html.Hidden("weeklyInventorySandwiches[" + @counter + "].Income", s.Income)
@@ -207,7 +224,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12 text-center">
-            <input type="submit" value="Submit Changes" class="btn btn-block btn-primary " />
+            <input type="submit" value="Submit Changes" class="btn btn-block btn-primary " />            
         </div>
     </div>
     
