@@ -3,11 +3,11 @@ namespace InventoryDash.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
-            CreateTable(
+           /* CreateTable(
                 "dbo.Ingredient",
                 c => new
                     {
@@ -29,7 +29,47 @@ namespace InventoryDash.Migrations
                         Meal = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
+            */
+            CreateTable(
+                "dbo.WeeklyInventoryDrinks",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        WeekId = c.Int(nullable: false),
+                        DrinkId = c.Int(nullable: false),
+                        QuantityToGo = c.Int(nullable: false),
+                        QuantityDineIn = c.Int(nullable: false),
+                        Cost = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Income = c.Decimal(nullable: false, precision: 18, scale: 2),
+                    })
+                .PrimaryKey(t => t.ID);
             
+            CreateTable(
+                "dbo.WeeklyInventoryMain",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        WeekOfYear = c.Int(nullable: false),
+                        Year = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
+                "dbo.WeeklyInventorySandwiches",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        WeekId = c.Int(nullable: false),
+                        Year = c.Int(nullable: false),
+                        SandwichId = c.Int(nullable: false),
+                        QuantityToGo = c.Int(nullable: false),
+                        QuantityDineIn = c.Int(nullable: false),
+                        MealId = c.Int(),
+                        Cost = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Income = c.Decimal(nullable: false, precision: 18, scale: 2),
+                    })
+                .PrimaryKey(t => t.ID);
+           /* 
             CreateTable(
                 "dbo.SandwichIngredient",
                 c => new
@@ -42,7 +82,7 @@ namespace InventoryDash.Migrations
                 .ForeignKey("dbo.Ingredient", t => t.Ingredient_ID, cascadeDelete: true)
                 .Index(t => t.Sandwich_ID)
                 .Index(t => t.Ingredient_ID);
-            
+            */
         }
         
         public override void Down()
@@ -52,6 +92,9 @@ namespace InventoryDash.Migrations
             DropIndex("dbo.SandwichIngredient", new[] { "Ingredient_ID" });
             DropIndex("dbo.SandwichIngredient", new[] { "Sandwich_ID" });
             DropTable("dbo.SandwichIngredient");
+            DropTable("dbo.WeeklyInventorySandwiches");
+            DropTable("dbo.WeeklyInventoryMain");
+            DropTable("dbo.WeeklyInventoryDrinks");
             DropTable("dbo.Sandwich");
             DropTable("dbo.Ingredient");
         }

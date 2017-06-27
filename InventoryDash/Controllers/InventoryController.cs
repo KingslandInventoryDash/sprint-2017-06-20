@@ -25,7 +25,7 @@ namespace InventoryDash.Controllers
         {
 
             int weekOfYear = GetCurrentWeekOfYear();
-            DateTime dateNow = new DateTime();
+            DateTime dateNow = DateTime.Now;
             int currentYear = dateNow.Year;
             ViewData["weekOfYear"] = weekOfYear;
             ViewData["startingYear"] = 2016;
@@ -33,9 +33,8 @@ namespace InventoryDash.Controllers
 
             var sandwichesViewModel = (from s in db.Sandwiches
                                        from so in db.WeeklyInventorySandwiches
-                                       .Where(orders => s.ID == orders.SandwichId)
+                                       .Where(orders => s.ID == orders.SandwichId && orders.WeekId == weekOfYear && orders.Year == currentYear)
                                        .DefaultIfEmpty()
-                                       where so.WeekId == weekOfYear
                                        select new WeeklyInventorySandwichesViewModel {
                                            ID = so.ID,
                                            WeekId = so.WeekId,
@@ -55,18 +54,18 @@ namespace InventoryDash.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(int yearSelected, int weekSelected)
+        public ActionResult IndexLoadWeek()
         {
-
+            int weekSelected = Convert.ToInt32(Request.Form["weekSelect"]);
+            int yearSelected = Convert.ToInt32(Request.Form["yearSelect"]);
             ViewData["weekOfYear"] = weekSelected;
             ViewData["startingYear"] = 2016;
             ViewData["selectedYear"] = yearSelected;
 
             var sandwichesViewModel = (from s in db.Sandwiches
                                        from so in db.WeeklyInventorySandwiches
-                                       .Where(orders => s.ID == orders.SandwichId)
+                                       .Where(orders => s.ID == orders.SandwichId && orders.WeekId == weekSelected && orders.Year == yearSelected)
                                        .DefaultIfEmpty()
-                                       where so.WeekId == weekSelected && so.Year == yearSelected
                                        select new WeeklyInventorySandwichesViewModel
                                        {
                                            ID = so.ID,
@@ -84,7 +83,7 @@ namespace InventoryDash.Controllers
                                        }).ToList();
 
 
-            return View(sandwichesViewModel);
+            return View("Index", sandwichesViewModel);
         }
 
 
