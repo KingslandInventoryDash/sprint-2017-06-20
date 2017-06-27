@@ -153,6 +153,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IngredientController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\SandwichController.cs" />
     <Compile Include="DAL\InventoryContext.cs" />
     <Compile Include="DAL\InventoryInitializer.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="Models\DailyInventory.cs" />
     <Compile Include="Models\Ingredient.cs" />
     <Compile Include="Models\ingredientEntry.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Sandwich.cs" />
     <Compile Include="Models\WeeklyInventoryDrinks.cs" />
     <Compile Include="Models\WeeklyInventoryExtras.cs" />
@@ -204,6 +206,11 @@
     <Content Include="Views\Sandwich\Edit.cshtml" />
     <Content Include="Views\Sandwich\Index.cshtml" />
     <Content Include="Views\Sandwich\AddIngredients.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Delete.cshtml" />
+    <Content Include="Views\Orders\Details.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
