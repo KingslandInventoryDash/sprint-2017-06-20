@@ -155,28 +155,24 @@
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\SandwichController.cs" />
+    <Compile Include="Controllers\WeeklyInventoryDrinksController.cs" />
     <Compile Include="DAL\InventoryContext.cs" />
     <Compile Include="DAL\InventoryInitializer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706261916486_Initial.cs" />
-    <Compile Include="Migrations\201706261916486_Initial.Designer.cs">
-      <DependentUpon>201706261916486_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706262137337_addedNumPortions.cs" />
-    <Compile Include="Migrations\201706262137337_addedNumPortions.Designer.cs">
-      <DependentUpon>201706262137337_addedNumPortions.cs</DependentUpon>
+    <Compile Include="Migrations\201706280314223_Initial.cs" />
+    <Compile Include="Migrations\201706280314223_Initial.Designer.cs">
+      <DependentUpon>201706280314223_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\DailyInventory.cs" />
     <Compile Include="Models\Ingredient.cs" />
-    <Compile Include="Models\ingredientEntry.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Sandwich.cs" />
+    <Compile Include="Models\SandwichIngredient.cs" />
     <Compile Include="Models\WeeklyInventoryDrinks.cs" />
+    <Compile Include="Models\WeeklyInventoryDrinksViewModel.cs" />
     <Compile Include="Models\WeeklyInventoryExtras.cs" />
-    <Compile Include="Models\WeeklyInventoryMain.cs" />
     <Compile Include="Models\WeeklyInventorySandwiches.cs" />
     <Compile Include="Models\WeeklyInventorySandwichesViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -211,6 +207,7 @@
     <Content Include="Views\Orders\Details.cshtml" />
     <Content Include="Views\Orders\Edit.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\WeeklyInventoryDrinks\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -219,18 +216,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706261916486_Initial.resx">
-      <DependentUpon>201706261916486_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706262137337_addedNumPortions.resx">
-      <DependentUpon>201706262137337_addedNumPortions.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201706280314223_Initial.resx">
+      <DependentUpon>201706280314223_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

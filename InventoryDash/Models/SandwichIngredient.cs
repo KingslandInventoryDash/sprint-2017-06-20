@@ -5,11 +5,10 @@ using System.Web;
 
 namespace InventoryDash.Models
 {
-    public class WeeklyInventoryMain
+    public class SandwichIngredient
     {
         public int ID { get; set; }
-        public int WeekOfYear { get; set; }
-        public int Year { get; set; }
-
+        public int Sandwich_ID { get; set; }
+        public int Ingredient_ID { get; set; }
     }
 }

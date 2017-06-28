@@ -13,7 +13,7 @@ namespace InventoryDash.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201706261916486_Initial"; }
+            get { return "201706280314223_Initial"; }
         }
         
         string IMigrationMetadata.Source

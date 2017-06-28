@@ -14,6 +14,7 @@ namespace InventoryDash.Migrations
                         ID = c.Int(nullable: false, identity: true),
                         Name = c.String(),
                         Price = c.Double(nullable: false),
+                        NumPortions = c.Int(nullable: false),
                         Category = c.Int(nullable: false),
                         UsedInSandwich = c.Boolean(nullable: false),
                     })
@@ -31,26 +32,42 @@ namespace InventoryDash.Migrations
                 .PrimaryKey(t => t.ID);
             
             CreateTable(
+                "dbo.Order",
+                c => new
+                    {
+                        MyID = c.Int(nullable: false, identity: true),
+                        IngredientID = c.Int(nullable: false),
+                        Cost = c.Double(nullable: false),
+                        Portions = c.Double(nullable: false),
+                        PortionsRemaining = c.Double(nullable: false),
+                        Date = c.DateTime(nullable: false),
+                        ExpirationDate = c.DateTime(nullable: false),
+                        Notes = c.String(),
+                    })
+                .PrimaryKey(t => t.MyID);
+            
+            CreateTable(
+                "dbo.SandwichIngredient",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Sandwich_ID = c.Int(nullable: false),
+                        Ingredient_ID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
                 "dbo.WeeklyInventoryDrinks",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
                         WeekId = c.Int(nullable: false),
+                        Year = c.Int(nullable: false),
                         DrinkId = c.Int(nullable: false),
                         QuantityToGo = c.Int(nullable: false),
                         QuantityDineIn = c.Int(nullable: false),
                         Cost = c.Decimal(nullable: false, precision: 18, scale: 2),
                         Income = c.Decimal(nullable: false, precision: 18, scale: 2),
-                    })
-                .PrimaryKey(t => t.ID);
-            
-            CreateTable(
-                "dbo.WeeklyInventoryMain",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        WeekOfYear = c.Int(nullable: false),
-                        Year = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
             
@@ -71,7 +88,7 @@ namespace InventoryDash.Migrations
                 .PrimaryKey(t => t.ID);
             
             CreateTable(
-                "dbo.SandwichIngredient",
+                "dbo.SandwichIngredient1",
                 c => new
                     {
                         Sandwich_ID = c.Int(nullable: false),
@@ -87,14 +104,15 @@ namespace InventoryDash.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.SandwichIngredient", "Ingredient_ID", "dbo.Ingredient");
-            DropForeignKey("dbo.SandwichIngredient", "Sandwich_ID", "dbo.Sandwich");
-            DropIndex("dbo.SandwichIngredient", new[] { "Ingredient_ID" });
-            DropIndex("dbo.SandwichIngredient", new[] { "Sandwich_ID" });
-            DropTable("dbo.SandwichIngredient");
+            DropForeignKey("dbo.SandwichIngredient1", "Ingredient_ID", "dbo.Ingredient");
+            DropForeignKey("dbo.SandwichIngredient1", "Sandwich_ID", "dbo.Sandwich");
+            DropIndex("dbo.SandwichIngredient1", new[] { "Ingredient_ID" });
+            DropIndex("dbo.SandwichIngredient1", new[] { "Sandwich_ID" });
+            DropTable("dbo.SandwichIngredient1");
             DropTable("dbo.WeeklyInventorySandwiches");
-            DropTable("dbo.WeeklyInventoryMain");
             DropTable("dbo.WeeklyInventoryDrinks");
+            DropTable("dbo.SandwichIngredient");
+            DropTable("dbo.Order");
             DropTable("dbo.Sandwich");
             DropTable("dbo.Ingredient");
         }
