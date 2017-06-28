@@ -62,7 +62,7 @@ namespace InventoryDash.Controllers
                 db.SaveChanges();
                 db.Entry(sandwich).GetDatabaseValues();
                 this.currentID = sandwich.ID;
-                return RedirectToAction("AddIngredients",new { id = sandwich.ID });
+                return RedirectToAction("AddIngredients", new { id = sandwich.ID });
             }
 
             return View(sandwich);
@@ -92,7 +92,7 @@ namespace InventoryDash.Controllers
                     cmd.CommandType = CommandType.Text;
                     cmd.Parameters.AddWithValue("@var1", sandwichId);
                     cmd.CommandText = "DELETE FROM SandwichIngredient WHERE Sandwich_ID=@var1";
-                    
+
                     //cmd.Parameters.AddWithValue("@var2", ingredient[i]);
                     int rowsAffected = cmd.ExecuteNonQuery();
                 }
@@ -113,7 +113,7 @@ namespace InventoryDash.Controllers
             }
             return View();
         }
-        
+
         public double GetCost(int id)
         {
             double output = 0.0f;
@@ -184,7 +184,7 @@ namespace InventoryDash.Controllers
             conn = new SqlConnection(conString);
             conn.Open();
             //int sandwichId = id;
-            
+
             using (SqlCommand cmd = new SqlCommand())
             {
                 cmd.Connection = conn;

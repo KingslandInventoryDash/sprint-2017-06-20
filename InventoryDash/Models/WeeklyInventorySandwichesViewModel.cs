@@ -31,8 +31,8 @@ namespace InventoryDash.Models
             temp *= 100;
             temp = Math.Round(temp);
             temp /= 100;
-            string output = "$"+temp.ToString();
-            
+            string output = "$" + temp.ToString();
+
             return output;
         }
     }

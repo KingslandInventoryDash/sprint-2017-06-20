@@ -1,4 +1,4 @@
-namespace InventoryDash.Migrations
+﻿namespace InventoryDash.Migrations
 {
     using System;
     using System.Data.Entity;
