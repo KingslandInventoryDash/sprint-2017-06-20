@@ -72,9 +72,9 @@
             </div>
         </div>
     </div>
-    
-    
-        @Html.Hidden("selectedWeekHolder", ViewData["weekOfYear"].ToString())
+
+
+    @Html.Hidden("selectedWeekHolder", ViewData["weekOfYear"].ToString())
 
     @Html.AntiForgeryToken()
 
@@ -82,6 +82,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
+                <h3>Breakfast Items</h3>
                 <table class="table">
                     <tr>
                         <th>Item</th>
@@ -101,7 +102,7 @@
                                     @Html.Hidden("weeklyInventoryDrinks[" + @counter + "].Cost", s.Cost)
                                     @Html.Hidden("weeklyInventoryDrinks[" + @counter + "].Income", s.Income)
                                 </td>
-                                
+
                                 <td class="col-md-1">@Html.TextBox("weeklyInventoryDrinks[" + @counter + "].QuantityDineIn", s.QuantityDineIn)</td>
                                 <td class="col-md-1">@Html.TextBox("weeklyInventoryDrinks[" + @counter + "].QuantityToGo", s.QuantityToGo)</td>
                             </tr>
@@ -161,7 +162,3 @@
 
         </div>
     </div>
-
-
-
-                    } <!--//End of using tag -->
