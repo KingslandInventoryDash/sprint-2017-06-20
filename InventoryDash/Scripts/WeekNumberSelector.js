@@ -110,7 +110,9 @@
 
     }).change();
 
-
+    $("#weekSelect").change(function () {
+        $(this).closest('form').trigger('submit');
+    });
 
 
     function getWeekListText(weekNumber, firstDay, weekLength) {

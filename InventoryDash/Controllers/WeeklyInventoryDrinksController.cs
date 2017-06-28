@@ -79,6 +79,9 @@ namespace InventoryDash.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Index([Bind(Include = "ID, WeekId, Year, DrinkId, QuantityToGo, QuantityDineIn, Cost, Income")] WeeklyInventoryDrinks[] weeklyInventoryDrinks)
         {
+            int weekSelected = Convert.ToInt32(Request.Form["weekSelect"]);
+            int yearSelected = Convert.ToInt32(Request.Form["yearSelect"]);
+
             int weekOfYear = weeklyInventoryDrinks[0].WeekId;
             int Year = weeklyInventoryDrinks[0].Year;
             //Cycle through the array of Sandwich information and decide if an entry needs to be made.            
@@ -89,8 +92,9 @@ namespace InventoryDash.Controllers
                 //{
                 //Some quantity information was provided
                 //Calculate the cost and income values
-                weeklyInventoryDrinks[i].Cost = Convert.ToDecimal(CalculateDrinkCost(weeklyInventoryDrinks[i].DrinkId));
-                weeklyInventoryDrinks[i].Income = Convert.ToDecimal(CalculateDrinkIncome(weeklyInventoryDrinks[i].DrinkId));
+                int totalQty = Convert.ToInt32(weeklyInventoryDrinks[i].QuantityDineIn) + Convert.ToInt32(weeklyInventoryDrinks[i].QuantityToGo);
+                weeklyInventoryDrinks[i].Cost = Convert.ToDecimal(CalculateDrinkCost(weeklyInventoryDrinks[i].DrinkId, totalQty));
+                weeklyInventoryDrinks[i].Income = Convert.ToDecimal(CalculateDrinkIncome(weeklyInventoryDrinks[i].DrinkId, totalQty));
 
 
                 //Determine if a record already exists - 
@@ -117,13 +121,13 @@ namespace InventoryDash.Controllers
             }
 
 
-            TempData["selectedYear"] = Year;
-            TempData["selectedWeek"] = weekOfYear;
+            TempData["selectedYear"] = yearSelected;
+            TempData["selectedWeek"] = weekSelected;
             return RedirectToAction("IndexLoadWeekGet"); // Stored year and week info in temp data, have to go to a get based action next.
 
         }
 
-        private double? CalculateDrinkIncome(int drinkId)
+        private double? CalculateDrinkIncome(int drinkId, int totalQty)
         {
             //Use the sandwich ID to query the Sandwich model to get the current price
             var drinksList = from s in db.Ingredients
@@ -132,17 +136,23 @@ namespace InventoryDash.Controllers
                              select s;
             foreach (var a in drinksList)
             {
-                return a.Price;
+                return a.Price * totalQty;
             }
             return null;
         }
 
-        private double? CalculateDrinkCost(int drinkId)
+        private double? CalculateDrinkCost(int drinkId, int totalQty)
         {
             //Get the cost of the drink from the Ingredients table / helper method.
-
-            //Debugging:
-            return 5.50;
+            var drinksList = from s in db.Ingredients
+                           .Where(drinks => drinks.Category == InventoryDash.Models.category.beverage)
+                             where s.ID == drinkId
+                             select s;
+            foreach (var a in drinksList)
+            {
+                return (a.Price / a.NumPortions) * totalQty;
+            }
+            return null;
         }
 
         public int GetCurrentWeekOfYear()

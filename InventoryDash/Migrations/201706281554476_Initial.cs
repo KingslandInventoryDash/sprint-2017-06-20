@@ -47,16 +47,6 @@ namespace InventoryDash.Migrations
                 .PrimaryKey(t => t.MyID);
             
             CreateTable(
-                "dbo.SandwichIngredient",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        Sandwich_ID = c.Int(nullable: false),
-                        Ingredient_ID = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID);
-            
-            CreateTable(
                 "dbo.WeeklyInventoryDrinks",
                 c => new
                     {
@@ -88,7 +78,7 @@ namespace InventoryDash.Migrations
                 .PrimaryKey(t => t.ID);
             
             CreateTable(
-                "dbo.SandwichIngredient1",
+                "dbo.SandwichIngredient",
                 c => new
                     {
                         Sandwich_ID = c.Int(nullable: false),
@@ -104,14 +94,13 @@ namespace InventoryDash.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.SandwichIngredient1", "Ingredient_ID", "dbo.Ingredient");
-            DropForeignKey("dbo.SandwichIngredient1", "Sandwich_ID", "dbo.Sandwich");
-            DropIndex("dbo.SandwichIngredient1", new[] { "Ingredient_ID" });
-            DropIndex("dbo.SandwichIngredient1", new[] { "Sandwich_ID" });
-            DropTable("dbo.SandwichIngredient1");
+            DropForeignKey("dbo.SandwichIngredient", "Ingredient_ID", "dbo.Ingredient");
+            DropForeignKey("dbo.SandwichIngredient", "Sandwich_ID", "dbo.Sandwich");
+            DropIndex("dbo.SandwichIngredient", new[] { "Ingredient_ID" });
+            DropIndex("dbo.SandwichIngredient", new[] { "Sandwich_ID" });
+            DropTable("dbo.SandwichIngredient");
             DropTable("dbo.WeeklyInventorySandwiches");
             DropTable("dbo.WeeklyInventoryDrinks");
-            DropTable("dbo.SandwichIngredient");
             DropTable("dbo.Order");
             DropTable("dbo.Sandwich");
             DropTable("dbo.Ingredient");

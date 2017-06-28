@@ -48,29 +48,34 @@
             break;
     }
 }
-@using (Html.BeginForm("IndexLoadWeek", "WeeklyInventoryDrinks"))
-{
-    <select id="yearSelect" name="yearSelect">
-        @for (int i = Convert.ToInt32(ViewData["startingYear"]); i <= currentYear; i++)
-        {
-            if (i == Convert.ToInt32(ViewData["selectedYear"]))
-            {
-                <option value="@i" selected> @i.ToString() </option>
-            }
-            else
-            {
-                <option value="@i"> @i.ToString() </option>
-            }
-        }
-    </select>
-    <select id="weekSelect" name="weekSelect"></select>
-        @Html.Hidden("selectedWeekHolder", ViewData["weekOfYear"].ToString())
-        <input type="submit" class="btn btn-primary" value="Load Selected Week" />
-}
-
-
 @using (Html.BeginForm("Index", "WeeklyInventoryDrinks"))
 {
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2">
+                <select id="yearSelect" name="yearSelect" class="form-control">
+                    @for (int i = Convert.ToInt32(ViewData["startingYear"]); i <= currentYear; i++)
+                    {
+                        if (i == Convert.ToInt32(ViewData["selectedYear"]))
+                        {
+                            <option value="@i" selected> @i.ToString() </option>
+                        }
+                        else
+                        {
+                            <option value="@i"> @i.ToString() </option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-sm-10">
+                <select id="weekSelect" name="weekSelect" class="form-control"></select>
+            </div>
+        </div>
+    </div>
+    
+    
+        @Html.Hidden("selectedWeekHolder", ViewData["weekOfYear"].ToString())
+
     @Html.AntiForgeryToken()
 
 
@@ -97,7 +102,7 @@
                                     @Html.Hidden("weeklyInventoryDrinks[" + @counter + "].Cost", s.Cost)
                                     @Html.Hidden("weeklyInventoryDrinks[" + @counter + "].Income", s.Income)
                                 </td>
-
+                                
                                 <td class="col-md-1">@Html.TextBox("weeklyInventoryDrinks[" + @counter + "].QuantityDineIn", s.QuantityDineIn)</td>
                                 <td class="col-md-1">@Html.TextBox("weeklyInventoryDrinks[" + @counter + "].QuantityToGo", s.QuantityToGo)</td>
                             </tr>
@@ -127,15 +132,15 @@
                     <th>Total Income</th>
                 </tr>
                 @{ int totalQuantity = 0;
-                    int collectCost = 0;
-                    int collectIncome = 0;
+                    decimal collectCost = 0;
+                    decimal collectIncome = 0;
                 }
                 <tbody>
                     @foreach (var s in (List<InventoryDash.Models.WeeklyInventoryDrinksViewModel>)Model)
                     {
                         totalQuantity = Convert.ToInt32(s.QuantityToGo) + Convert.ToInt32(s.QuantityDineIn);
-                        collectCost += Convert.ToInt32(s.Cost);
-                        collectIncome += Convert.ToInt32(s.Income);
+                        collectCost += Convert.ToDecimal(s.Cost);
+                        collectIncome += Convert.ToDecimal(s.Income);
                         <tr>
                             <td>@s.Name</td>
                             <td>@s.QuantityDineIn</td>

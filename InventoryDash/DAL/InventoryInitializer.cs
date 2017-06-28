@@ -7,15 +7,16 @@ using InventoryDash.Models;
 
 namespace InventoryDash.DAL
 {
-    public class InventoryInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<InventoryContext>
+    //public class InventoryInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<InventoryContext>
+    public class InventoryInitializer : System.Data.Entity.DropCreateDatabaseAlways<InventoryContext>
     {
         protected override void Seed(InventoryContext context)
         {
             var ingredients = new List<Ingredient>
             {
-            new Ingredient { Name = "white bread", Category = category.bread },
-            new Ingredient { Name = "butter", Category = category.dairy},
-            new Ingredient { Name = "pepperjack cheese", Category = category.dairy}
+            new Ingredient { Name = "white bread", Category = category.bread, Price=5, NumPortions=20 },
+            new Ingredient { Name = "butter", Category = category.dairy, Price = 6, NumPortions=24},
+            new Ingredient { Name = "pepperjack cheese", Category = category.dairy, Price=8, NumPortions=20}
             };
             ingredients.ForEach(s => context.Ingredients.Add(s));
             context.SaveChanges();
