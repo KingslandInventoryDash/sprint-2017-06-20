@@ -18,8 +18,35 @@ namespace InventoryDash.Controllers
         // GET: Orders
         public ActionResult Index()
         {
-            return View(db.Orders.ToList());
+            var orderViewModel = prepareViewModel();
+            return View(orderViewModel);
         }
+
+        private object prepareViewModel()
+        {
+            if (db.Orders.Any())
+            {
+                return (from s in db.Ingredients
+                        from so in db.Orders
+                        .Where(orders => orders.IngredientID == s.ID)
+                        select new OrderViewModel
+                        {
+                            MyID = so.MyID,
+                            IngredientID = so.IngredientID,
+                            Cost = so.Cost,
+                            Portions = so.Portions,
+                            PortionsRemaining = so.PortionsRemaining,
+                            Date = so.Date,
+                            ExpirationDate = so.ExpirationDate,
+                            Notes = so.Notes,
+                            Name = s.Name
+                        }).ToList();
+            }
+
+            return new List<OrderViewModel>();
+            
+        }
+   
 
         // GET: Orders/Details/5
         public ActionResult Details(int? id)
@@ -39,6 +66,13 @@ namespace InventoryDash.Controllers
         // GET: Orders/Create
         public ActionResult Create()
         {
+            //Get a list of Ingredients to pass along
+            //var ingredientList = db.Ingredients.Select(ing => ing.Category != InventoryDash.Models.category.togo && ing.Category != InventoryDash.Models.category.beverage);
+            var ingredientList = (from ing in db.Ingredients
+                                  where ing.Category != InventoryDash.Models.category.togo && ing.Category != InventoryDash.Models.category.beverage
+                                  select ing).ToList();
+
+            ViewData["ingredientList"] = ingredientList;
             return View();
         }
 

@@ -88,9 +88,7 @@ namespace InventoryDash.Controllers
 
             for (int i = 0; i < weeklyInventoryDrinks.Count(); i++)
             {
-                // if(weeklyInventorySandwiches[i].ID != 0 || weeklyInventorySandwiches[i].QuantityDineIn != 0 || weeklyInventorySandwiches[i].QuantityToGo != 0)
-                //{
-                //Some quantity information was provided
+
                 //Calculate the cost and income values
                 int totalQty = Convert.ToInt32(weeklyInventoryDrinks[i].QuantityDineIn) + Convert.ToInt32(weeklyInventoryDrinks[i].QuantityToGo);
                 weeklyInventoryDrinks[i].Cost = Convert.ToDecimal(CalculateDrinkCost(weeklyInventoryDrinks[i].DrinkId, totalQty));
@@ -117,7 +115,6 @@ namespace InventoryDash.Controllers
                     db.WeeklyInventoryDrinks.Add(weeklyInventoryDrinks[i]);
                     db.SaveChanges();
                 }
-                //}
             }
 
 

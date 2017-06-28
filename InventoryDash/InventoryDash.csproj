@@ -173,6 +173,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Ingredient.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\Sandwich.cs" />
     <Compile Include="Models\WeeklyInventoryDrinks.cs" />
     <Compile Include="Models\WeeklyInventoryDrinksViewModel.cs" />

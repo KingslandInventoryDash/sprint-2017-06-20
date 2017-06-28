@@ -1,4 +1,4 @@
-﻿@model IEnumerable<InventoryDash.Models.Order>
+﻿@model IEnumerable<InventoryDash.Models.OrderViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -13,6 +13,9 @@
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.IngredientID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Cost)
@@ -39,6 +42,9 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.IngredientID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Cost)

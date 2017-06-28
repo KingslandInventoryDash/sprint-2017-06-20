@@ -27,6 +27,10 @@ namespace InventoryDash.DAL
                 new Ingredient { Name = "papadum", Category = category.bread, Price = 6, NumPortions=40},
                 new Ingredient { Name = "pickled cucumber + tomato salsa", Category = category.produce, Price = 6, NumPortions=20},
                 new Ingredient { Name = "raita", Category = category.condiment, Price = 6, NumPortions=100},
+                new Ingredient { Name = "Fried egg", Category = category.protein, Price = 2, NumPortions=12},
+                new Ingredient { Name = "Cheddar", Category = category.dairy, Price = 12, NumPortions=20},
+                new Ingredient { Name = "Pepper Jack cheese", Category = category.dairy, Price = 12, NumPortions=20},
+                new Ingredient { Name = "English muffin", Category = category.dairy, Price = 12, NumPortions=20},
 
                 new Ingredient { Name = "Bottle water", Category = category.beverage, Price = 5, NumPortions=50},
                 new Ingredient { Name = "Can soda", Category = category.beverage, Price = 6, NumPortions=24},
@@ -41,11 +45,13 @@ namespace InventoryDash.DAL
 
             var sandwiches = new List<Sandwich>
             {
-                new Sandwich {Name="White bread toast & butter", Price=1.00, Ingredients = new List<Ingredient> { new Ingredient { Name = "white bread"}, new Ingredient { Name = "butter"} } },
-                new Sandwich {Name="White bread toast & butter with jam", Price=1.50, Ingredients = new List<Ingredient> { new Ingredient { Name = "white bread"}, new Ingredient { Name = "butter"}, new Ingredient { Name = "jam"} } },
-                new Sandwich {Name="Guinness braised beef", Price=8.00, Meal=meal.lunch, Ingredients = new List<Ingredient> { new Ingredient { Name = "Guinness braised beef"}, new Ingredient { Name = "house pickles"}, new Ingredient { Name = "smoky salsa roja"}, new Ingredient { Name = "creamy coleslaw" }, new Ingredient { Name = "French roll" } } },
-                new Sandwich {Name="Mumbai spiced chicken breast", Price=8.00, Meal=meal.lunch, Ingredients = new List<Ingredient> { new Ingredient { Name = "Mumbai spiced chicken breast"}, new Ingredient { Name = "papadum"}, new Ingredient { Name = "pickled cucumber + tomato salsa"}, new Ingredient { Name = "raita" }, new Ingredient { Name = "French roll" } } },
-                new Sandwich {Name="Fried egg, cheddar or pepper jack cheese", Price=3.00, Ingredients = new List<Ingredient> { new Ingredient { Name = "English muffin"}, new Ingredient { Name = "cheddar cheese"}, new Ingredient { Name = "pepper jack cheese"} } }
+                new Sandwich {Name="White bread toast & butter", Price=1.00, Ingredients = new List<Ingredient> { context.Ingredients.Single(ing => ing.Name == "white bread"), context.Ingredients.Single(ing => ing.Name == "butter") } },
+                new Sandwich {Name="White bread toast & butter with jam", Price=1.50, Ingredients = new List<Ingredient> { context.Ingredients.Single(ing => ing.Name == "white bread"), context.Ingredients.Single(ing => ing.Name == "butter"), context.Ingredients.Single(ing => ing.Name == "jam") } },
+
+                new Sandwich {Name="Guinness braised beef", Price=8.00, Meal=meal.lunch, Ingredients = new List<Ingredient> { context.Ingredients.Single(ing => ing.Name == "Guinness braised beef"), context.Ingredients.Single(ing => ing.Name == "house pickles"), context.Ingredients.Single(ing => ing.Name == "smoky salsa roja"), context.Ingredients.Single(ing => ing.Name == "creamy coleslaw"), context.Ingredients.Single(ing => ing.Name == "French roll") } },
+                new Sandwich {Name="Mumbai spiced chicken breast", Price=8.00, Meal=meal.lunch, Ingredients = new List<Ingredient> { context.Ingredients.Single(ing => ing.Name == "Mumbai spiced chicken breast"), context.Ingredients.Single(ing => ing.Name == "papadum"), context.Ingredients.Single(ing => ing.Name == "pickled cucumber + tomato salsa"), context.Ingredients.Single(ing => ing.Name == "raita"), context.Ingredients.Single(ing => ing.Name == "French roll") } },
+                                                                                               
+                new Sandwich {Name="Fried egg, pepper jack cheese", Price=3.00, Ingredients = new List<Ingredient> { context.Ingredients.Single(ing => ing.Name == "Fried egg"), context.Ingredients.Single(ing => ing.Name == "Pepper Jack cheese"), context.Ingredients.Single(ing => ing.Name == "English muffin") } }
             };
             sandwiches.ForEach(s => context.Sandwiches.Add(s));
             context.SaveChanges();

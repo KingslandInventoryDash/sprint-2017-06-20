@@ -17,7 +17,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.IngredientID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.IngredientID, new { htmlAttributes = new { @class = "form-control" } })
+               @* @Html.EditorFor(model => model.IngredientID, new { htmlAttributes = new { @class = "form-control" } })
+                   *@
+                <select class="form-control">
+                    @foreach (var item in ViewData["ingredientList"] as List<InventoryDash.Models.Ingredient> )
+                    {
+                        <option value="@item.ID">@item.Name</option>
+                    }
+                </select>
                 @Html.ValidationMessageFor(model => model.IngredientID, "", new { @class = "text-danger" })
             </div>
         </div>
