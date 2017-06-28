@@ -9,6 +9,7 @@ namespace InventoryDash.DAL
 
         public InventoryContext() : base("InventoryContext")
         {
+            
         }
 
         public DbSet<Ingredient> Ingredients { get; set; }
@@ -16,8 +17,6 @@ namespace InventoryDash.DAL
 
         public DbSet<WeeklyInventorySandwiches> WeeklyInventorySandwiches { get; set; }
         public DbSet<WeeklyInventoryDrinks> WeeklyInventoryDrinks { get; set; }
-
-        public DbSet<SandwichIngredient> SandwichIngredients { get; set; }
 
         public DbSet<Order> Orders { get; set; }
 

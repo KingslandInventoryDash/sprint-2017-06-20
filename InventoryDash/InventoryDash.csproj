@@ -161,15 +161,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706280314223_Initial.cs" />
-    <Compile Include="Migrations\201706280314223_Initial.Designer.cs">
-      <DependentUpon>201706280314223_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201706281554476_Initial.cs" />
+    <Compile Include="Migrations\201706281554476_Initial.Designer.cs">
+      <DependentUpon>201706281554476_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Ingredient.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Sandwich.cs" />
-    <Compile Include="Models\SandwichIngredient.cs" />
     <Compile Include="Models\WeeklyInventoryDrinks.cs" />
     <Compile Include="Models\WeeklyInventoryDrinksViewModel.cs" />
     <Compile Include="Models\WeeklyInventoryExtras.cs" />
@@ -222,8 +221,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706280314223_Initial.resx">
-      <DependentUpon>201706280314223_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706281554476_Initial.resx">
+      <DependentUpon>201706281554476_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
