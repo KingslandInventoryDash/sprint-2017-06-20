@@ -156,6 +156,7 @@
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\SandwichController.cs" />
     <Compile Include="Controllers\WeeklyInventoryDrinksController.cs" />
+    <Compile Include="Controllers\WeeklyInventoryToGosController.cs" />
     <Compile Include="DAL\InventoryContext.cs" />
     <Compile Include="DAL\InventoryInitializer.cs" />
     <Compile Include="Global.asax.cs">
@@ -165,15 +166,20 @@
     <Compile Include="Migrations\201706281554476_Initial.Designer.cs">
       <DependentUpon>201706281554476_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706281747278_add_togos.cs" />
+    <Compile Include="Migrations\201706281747278_add_togos.Designer.cs">
+      <DependentUpon>201706281747278_add_togos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Ingredient.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Sandwich.cs" />
     <Compile Include="Models\WeeklyInventoryDrinks.cs" />
     <Compile Include="Models\WeeklyInventoryDrinksViewModel.cs" />
-    <Compile Include="Models\WeeklyInventoryExtras.cs" />
+    <Compile Include="Models\WeeklyInventoryToGos.cs" />
     <Compile Include="Models\WeeklyInventorySandwiches.cs" />
     <Compile Include="Models\WeeklyInventorySandwichesViewModel.cs" />
+    <Compile Include="Models\WeeklyInventoryToGosViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -207,6 +213,7 @@
     <Content Include="Views\Orders\Edit.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\WeeklyInventoryDrinks\Index.cshtml" />
+    <Content Include="Views\WeeklyInventoryToGos\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -223,6 +230,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201706281554476_Initial.resx">
       <DependentUpon>201706281554476_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706281747278_add_togos.resx">
+      <DependentUpon>201706281747278_add_togos.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

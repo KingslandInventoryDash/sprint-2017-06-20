@@ -5,11 +5,12 @@ using System.Web;
 
 namespace InventoryDash.Models
 {
-    public class WeeklyInventoryExtras
+    public class WeeklyInventoryToGos
     {
         public int ID { get; set; }
         public int WeekId { get; set; }
-        public int ExtraId { get; set; }
+        public int Year { get; set; }
+        public int ToGoId { get; set; }
         public int QuantityToGo { get; set; }
         public int QuantityDineIn { get; set; }
         public decimal Cost { get; set; }

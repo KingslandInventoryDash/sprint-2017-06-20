@@ -1,10 +1,10 @@
-﻿@model List<InventoryDash.Models.WeeklyInventoryDrinksViewModel>
+﻿@model List<InventoryDash.Models.WeeklyInventoryToGosViewModel>
 
 @{
-    ViewBag.Title = "Weekly Drink Sales";
+    ViewBag.Title = "Weekly ToGos Sales";
 }
 
-<h2>Drink Sales - </h2>
+<h2>ToGos Sales - </h2>
 
 @{
     int selectedYear = Convert.ToInt32(ViewData["selectedYear"]);
@@ -48,7 +48,7 @@
             break;
     }
 }
-@using (Html.BeginForm("Index", "WeeklyInventoryDrinks"))
+@using (Html.BeginForm("Index", "WeeklyInventoryToGos"))
 {
     <div class="container">
         <div class="row">
@@ -72,9 +72,9 @@
             </div>
         </div>
     </div>
-    
-    
-        @Html.Hidden("selectedWeekHolder", ViewData["weekOfYear"].ToString())
+
+
+    @Html.Hidden("selectedWeekHolder", ViewData["weekOfYear"].ToString())
 
     @Html.AntiForgeryToken()
 
@@ -89,21 +89,21 @@
                         <th>Qty (To-Go)</th>
                     </tr>
                     <tbody>
-                        @foreach (var s in (List<InventoryDash.Models.WeeklyInventoryDrinksViewModel>)Model)
+                        @foreach (var s in (List<InventoryDash.Models.WeeklyInventoryToGosViewModel>)Model)
                         {
                             <tr>
                                 <td>
                                     @s.Name
-                                    @Html.Hidden("weeklyInventoryDrinks[" + @counter + "].DrinkID", s.DrinkId)
-                                    @Html.Hidden("weeklyInventoryDrinks[" + @counter + "].WeekId", s.WeekId > 0 ? s.WeekId : ViewData["weekOfYear"])
-                                    @Html.Hidden("weeklyInventoryDrinks[" + @counter + "].Year", s.Year > 0 ? s.Year : ViewData["selectedYear"])
-                                    @Html.Hidden("weeklyInventoryDrinks[" + @counter + "].ID", s.ID)
-                                    @Html.Hidden("weeklyInventoryDrinks[" + @counter + "].Cost", s.Cost)
-                                    @Html.Hidden("weeklyInventoryDrinks[" + @counter + "].Income", s.Income)
+                                    @Html.Hidden("weeklyInventoryToGos[" + @counter + "].ToGoID", s.ToGoId)
+                                    @Html.Hidden("weeklyInventoryToGos[" + @counter + "].WeekId", s.WeekId > 0 ? s.WeekId : ViewData["weekOfYear"])
+                                    @Html.Hidden("weeklyInventoryToGos[" + @counter + "].Year", s.Year > 0 ? s.Year : ViewData["selectedYear"])
+                                    @Html.Hidden("weeklyInventoryToGos[" + @counter + "].ID", s.ID)
+                                    @Html.Hidden("weeklyInventoryToGos[" + @counter + "].Cost", s.Cost)
+                                    @Html.Hidden("weeklyInventoryToGos[" + @counter + "].Income", s.Income)
                                 </td>
-                                
-                                <td class="col-md-1">@Html.TextBox("weeklyInventoryDrinks[" + @counter + "].QuantityDineIn", s.QuantityDineIn)</td>
-                                <td class="col-md-1">@Html.TextBox("weeklyInventoryDrinks[" + @counter + "].QuantityToGo", s.QuantityToGo)</td>
+
+                                <td class="col-md-1">@Html.TextBox("weeklyInventoryToGos[" + @counter + "].QuantityDineIn", s.QuantityDineIn)</td>
+                                <td class="col-md-1">@Html.TextBox("weeklyInventoryToGos[" + @counter + "].QuantityToGo", s.QuantityToGo)</td>
                             </tr>
                             counter = counter + 1;
                         }
@@ -135,7 +135,7 @@
                     decimal collectIncome = 0;
                 }
                 <tbody>
-                    @foreach (var s in (List<InventoryDash.Models.WeeklyInventoryDrinksViewModel>)Model)
+                    @foreach (var s in (List<InventoryDash.Models.WeeklyInventoryToGosViewModel>)Model)
                     {
                         totalQuantity = Convert.ToInt32(s.QuantityToGo) + Convert.ToInt32(s.QuantityDineIn);
                         collectCost += Convert.ToDecimal(s.Cost);
@@ -162,6 +162,4 @@
         </div>
     </div>
 
-
-
-                    } <!--//End of using tag -->
+} <!--//End of using tag -->

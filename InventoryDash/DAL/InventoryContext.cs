@@ -17,6 +17,7 @@ namespace InventoryDash.DAL
 
         public DbSet<WeeklyInventorySandwiches> WeeklyInventorySandwiches { get; set; }
         public DbSet<WeeklyInventoryDrinks> WeeklyInventoryDrinks { get; set; }
+        public DbSet<WeeklyInventoryToGos> WeeklyInventoryToGos { get; set; }
 
         public DbSet<Order> Orders { get; set; }
 
