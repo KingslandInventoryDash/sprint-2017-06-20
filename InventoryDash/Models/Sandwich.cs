@@ -36,7 +36,7 @@ namespace InventoryDash.Models
             output = temp * 100;
             output = Math.Round(output);
             output /= 100;
-            CurrentCost = "$"+output.ToString();
+            CurrentCost = "$" + output.ToString();
             return temp;
         }
 

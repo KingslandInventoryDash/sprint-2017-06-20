@@ -45,7 +45,7 @@ namespace InventoryDash.Controllers
         {
             int weekSelected = Convert.ToInt32(TempData["selectedWeek"]);
             int yearSelected = Convert.ToInt32(TempData["selectedYear"]);
-            
+
             ViewData["weekOfYear"] = weekSelected;
             ViewData["startingYear"] = 2016;
             ViewData["selectedYear"] = yearSelected;
@@ -138,12 +138,12 @@ namespace InventoryDash.Controllers
 
                 //Calculate the cost and income values
                 int totalQty = weeklyInventorySandwiches[i].QuantityDineIn + weeklyInventorySandwiches[i].QuantityToGo;
-                weeklyInventorySandwiches[i].Cost = Convert.ToDecimal( CalculateSandwichCost(weeklyInventorySandwiches[i].SandwichId, totalQty));
-                weeklyInventorySandwiches[i].Income = Convert.ToDecimal( CalculateSandwichIncome(weeklyInventorySandwiches[i].SandwichId, totalQty));
+                weeklyInventorySandwiches[i].Cost = Convert.ToDecimal(CalculateSandwichCost(weeklyInventorySandwiches[i].SandwichId, totalQty));
+                weeklyInventorySandwiches[i].Income = Convert.ToDecimal(CalculateSandwichIncome(weeklyInventorySandwiches[i].SandwichId, totalQty));
 
-                    
+
                 //Determine if a record already exists - 
-                    
+
                 if (weeklyInventorySandwiches[i].ID != 0)
                 {
                     //Yes, then update the record.
@@ -163,7 +163,7 @@ namespace InventoryDash.Controllers
                     //No, add the record.
                     db.WeeklyInventorySandwiches.Add(weeklyInventorySandwiches[i]);
                     db.SaveChanges();
-                }                    
+                }
 
             }
             //Ensure sandwiches available in multiple meals will show on the list
@@ -199,8 +199,8 @@ namespace InventoryDash.Controllers
 
             TempData["selectedYear"] = yearSelected;
             TempData["selectedWeek"] = weekSelected;
-            return RedirectToAction( "IndexLoadWeekGet");
-            
+            return RedirectToAction("IndexLoadWeekGet");
+
         }
 
 
